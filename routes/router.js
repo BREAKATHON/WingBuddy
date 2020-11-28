@@ -19,6 +19,10 @@ router.get('/', function (req, res) {
   res.render('landingPage');
 });
 
+router.get('/matching', function (req, res) {
+  res.render('matchingCards');
+});
+
 router.get('/login', function (req, res) {
   res.render('landingPage', {
     isLoginPage: true
