@@ -1,33 +1,54 @@
-form.column(method='post' action='/signup')
-  .form-group.col-md-5 
-    h3 
-      span.col-auto.badge.badge-warning
-      | Registration as a buddy 
-  .form-group.col-md-5 
-    label(for='email')
-      | Email address 
-      span(style='color: red; display: inline; float: none;') 
-        | *
-    input.form-control(type='email' name='email' aria-describedby='emailHelp' placeholder='Enter email' required='') 
-    small#emailHelp.form-text.text-muted
-    | We&apos;ll never share your email with anyone else. 
+form.column(method='post' action='')
   .form-group.col-md-5
-    label(for='inputPassword1') 
-      | Password 
-      span(style='color: red; display: inline; float: none;') 
-        | * 
-    input.form-control(type='password' name='password_1' placeholder='Password' required='') 
+    label(for='exampleInputEmail1')
+      | Name
+      span(style='color: red; display: inline; float: none;') *
+    input.form-control(type='text' id='' aria-describedby='name')
   .form-group.col-md-5
-    label(for='inputPassword2') 
-      | Confirm password 
-      span(style='color: red; display: inline; float: none;') 
-        | * 
-    input.form-control(type='password' name='password_2' placeholder='Password' required='') 
+    label(for='City') City
+    span(style='color: red; display: inline; float: none;') *
+    input.form-control(type='text' id='')
   .form-group.col-md-5
-    input(type="hidden" id="signup_type" name="signup_type" value="volunteer")
-    button.btn.btn-outline-warning(type='submit') 
-      | Sign up
-  .form-group.col-md-5 
+    label(for='Street') Street
+    span(style='color: red; display: inline; float: none;') *
+    input.form-control(type='text' id='')
+  .form-group.col-md-5
+    label(for='Zip') Zip code
+    span(style='color: red; display: inline; float: none;') *
+    input.form-control(type='text' id='')
+  .form-group.col-md-5
+    label(for='bday')
+      | Date of birth
+      span(style='color: red; display: inline; float: none;') *
+    input#bday(type='date' name='bday' required='')
+  .form-group.col-md-5
+    label(for='email') Email
+    span(style='color: red; display: inline; float: none;') *
+    input.form-control(type='password' id='')
+  .form-group.col-md-5
+    label(for='number') Telephone
+    span(style='color: red; display: inline; float: none;' required='')
+    span(style='color: red; display: inline; float: none;') *
+    input.form-control(type='password' id='')
+  .form-group.col-md-5
+    label(for='exampleFormControlSelect1') Gender
+    select.form-control.col-md-5(id='')
+      option Male
+      option Female
+      option Other
+      option Non binary
+      option I don&apos;t want to share this information
+  .form-group.col-md-5
+    label(for='exampleInputPassword1') Dress Size
+    input#exampleInputPassword1.form-control(type='password')
+  .form-group.col-md-5
+    label(for='exampleFormControlSelect1') Interest
+    select.form-control.col-md-5(id='')
+      option music
+      option culture
+      option sports
+      option gender
+  button.btn.btn-primary(type='submit') Submit
   p.col-md-5 
     | Already a member?
     a.text-warning(href='/login') 
