@@ -12,15 +12,15 @@
   },
   "license": "MIT",
   "dependencies": {
-    "dotenv": "~8.2.0",
-    "express": "~4.11.x",
-    "got": "^11.8.0",
-    "helmet": "^3.22.0",
-    "kerberos": "~0.0.x",
-    "parse": "~1.8.0",
-    "parse-server": "*",
-    "pug": "^3.0.0",
-    "urlencode": "^1.1.0"
+    "dotenv": "~8.2.x",
+    "express": "~4.17.x",
+    "got": "^11.8.x",
+    "helmet": "^4.2.x",
+    "kerberos": "~1.1.x",
+    "parse": "~2.18.x",
+    "parse-server": "~4.4.x",
+    "pug": "^3.0.x",
+    "urlencode": "^1.1.x"
   },
   "engines": {
     "node": ">=4.3"
