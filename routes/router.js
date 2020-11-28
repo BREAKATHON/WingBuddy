@@ -19,6 +19,18 @@ router.get('/', function(req, res) {
   res.render('landingPage');
 });
 
+router.get('/login', function(req, res) {
+  res.render('landingPage', {
+    isLoginPage: true
+  });
+});
+
+router.get('/signup', function(req, res) {
+  res.render('landingPage', {
+    isLoginPage: false
+  });
+});
+
 // There will be a test page available on the /test path of your server url
 // Remove this before launching your app
 router.get('/test-static', function (req, res) {

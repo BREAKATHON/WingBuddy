@@ -1,8 +1,6 @@
-doctype html
-html(lang='en')
- head
-   title Landing Page
- body
-   h1 #{value}
-   div.remark
-     p #{error == undefined ? "No error" : error.message}
+include partials/header.pug
+if isLoginPage
+ include login.pug 
+else 
+  include signup.pug
+include partials/footer.pug

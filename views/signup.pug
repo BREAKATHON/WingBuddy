@@ -1,0 +1,39 @@
+section.jumbotron.d-flex.flex-row.justify-content-end
+  h1.mr-5.text-info 
+    | Registration 
+section.container 
+  form.column(method='post' action='/signup')
+    .form-group.col-md-5 
+      h3 
+        span.col-auto.badge.badge-warning
+        | Registration 
+    .form-group.col-md-5 
+      label(for='email')
+        | Email address 
+        span(style='color: red; display: inline; float: none;') 
+          | *
+      input.form-control(type='email' name='email' aria-describedby='emailHelp' placeholder='Enter email' required='') 
+      small#emailHelp.form-text.text-muted
+      | We&apos;ll never share your email with anyone else. 
+    .form-group.col-md-5
+      label(for='inputPassword1') 
+        | Password 
+        span(style='color: red; display: inline; float: none;') 
+          | * 
+      input.form-control(type='password' name='password_1' placeholder='Password' required='') 
+    .form-group.col-md-5
+      label(for='inputPassword2') 
+        | Confirm password 
+        span(style='color: red; display: inline; float: none;') 
+          | * 
+      input.form-control(type='password' name='password_2' placeholder='Password' required='') 
+    .form-group.col-md-5
+      button.btn.btn-outline-warning(type='submit' name='reg_volunteer') 
+        | I&apos;m a buddy
+      button.btn.btn-outline-warning(type='submit' name='reg_seeker') 
+        | I&apos;m a buddy seeker 
+    .form-group.col-md-5 
+    p.col-md-5 
+      | Already a member?
+      a.text-warning(href='/login') 
+        | Log in
