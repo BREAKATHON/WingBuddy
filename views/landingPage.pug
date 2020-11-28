@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 doctype html
 html(lang='en')
  head
@@ -8,3 +9,11 @@ html(lang='en')
      p #{error == undefined ? "No error" : error.message}   div.remark
      p #{error == undefined ? "No error" : error.message}   div.remark
      p #{error == undefined ? "No error" : error.message}
+=======
+include partials/header.pug
+if isLoginPage
+ include login.pug 
+else 
+  include signup.pug
+include partials/footer.pug
+>>>>>>> 00381b683768b5ba2820eebd46fb3bf7ec7ed2e8
