@@ -3,7 +3,7 @@ form.column(method='post' action='')
     label(for='name')
       | Name
       span(style='color: red; display: inline; float: none;') *
-    input.form-control(type='text' id='name' id='name' aria-describedby='name')
+    input.form-control(type='text' id='name' name='name' aria-describedby='name')
   .form-group.col-md-5
     label(for='city') City
     span(style='color: red; display: inline; float: none;') *
@@ -38,8 +38,8 @@ form.column(method='post' action='')
       option Non binary
       option I don&apos;t want to share this information
   .form-group.col-md-5
-    label(for='dress_size') Dress Size
-    input#exampleInputPassword1.form-control(type='text', id='dress_size' name='dress_size')
+    label(for='shirt_size') Dress Size
+    input.form-control(type='text', id='shirt_size' name='shirt_size')
   .form-group.col-md-5
     label(for='interests') Interest
     select.form-control.col-md-5(id='interests' name='interests')
