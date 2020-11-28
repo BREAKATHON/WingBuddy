@@ -17,11 +17,9 @@
     "parse": "~1.8.0",
     "parse-server": "*",
     "helmet": "^3.22.0",
-    "pug": "^3.0.0"
-  },
-  "devDependencies": {
+    "pug": "^3.0.0",
     "dotenv": "~8.2.0"
-  },
+  }
   "scripts": {
     "start": "node index.js"
   },
