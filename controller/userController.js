@@ -47,11 +47,13 @@ const userController = {
     user.set("password", password_1);
     user.set("email", email);
     user.set("name", name);
-    user.set("gender", gender);
 
     const coordinates = await geoCodingController.decode(street, postal_code, city);
-    const location = new Parse.GeoPoint({latitude: coordinates.lat, longitude: coordinates.lon});
+    const location = new Parse.GeoPoint({latitude: parseFloat(coordinates.lat), longitude: parseFloat(coordinates.lon)});
     user.set("location", location);
+    user.set("street", street);
+    user.set("postal_code", postal_code);
+    user.set("city", city);
 
     // Add additional fields based on sign up persona
     if (signup_type == "seeker") {
@@ -61,10 +63,9 @@ const userController = {
       const seeker = new Seeker();
 
       // Seeker fields
-      const { special_needs, event_types } = req.body;
+      const { special_needs } = req.body;
     
       seeker.set("special_needs", special_needs);
-      seeker.set("event_types", event_types);
 
       await seeker.save();
 
