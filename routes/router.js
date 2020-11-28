@@ -25,6 +25,11 @@ router.get('/login', function (req, res) {
   });
 });
 
+router.get('/matchingCards', function (req, res) {
+  res.render('matchingCards');
+});
+
+
 router.get('/geo', async function (req, res) {
 
   const street = "Danziger Str. 122";
