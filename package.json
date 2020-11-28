@@ -1,11 +1,14 @@
 {
-  "name": "parse-server-example",
-  "version": "1.4.0",
-  "description": "An example Parse API server using the parse-server module",
+  "name": "WingBuddy",
+  "version": "1.0.0",
+  "description": "A buddy matching platform for visits to cultural events for handicapped people.",
   "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ParsePlatform/parse-server-example"
+    "url": "https://github.com/BREAKATHON/WingBuddy"
   },
   "license": "MIT",
   "dependencies": {
