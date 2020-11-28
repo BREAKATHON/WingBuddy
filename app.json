@@ -1,0 +1,27 @@
+{
+  "name": "WingBuddy",
+  "description": "A buddy matching platform for visits to cultural events for handicapped people.",
+  "repository": "https://github.com/BREAKATHON/WingBuddy",
+  "logo": "",
+  "keywords": ["accessibility", "handicap", "concert"],
+  "env": {
+    "PARSE_MOUNT": {
+      "description": "Configure Parse API route.",
+      "value": "/parse"
+    },
+    "APP_ID": {
+      "description": "A unique identifier for your app.",
+      "value": ""
+    },
+    "MASTER_KEY": {
+      "description": "A key that overrides all permissions. Keep this secret.",
+      "value": ""
+    },
+    "SERVER_URL": {
+      "description": "URL to connect to your Heroku instance (update with your app's name + PARSE_MOUNT)",
+      "value": "http://wingbuddy.herokuapp.com/parse"
+    }
+  },
+  "image": "heroku/nodejs",
+  "addons": ["mongolab"]
+}
