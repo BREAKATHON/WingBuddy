@@ -23,6 +23,11 @@ router.get('/matching', function (req, res) {
   res.render('matchingCards');
 });
 
+router.get('/events', function (req, res) {
+  res.render('eventForm');
+});
+
+
 router.get('/login', function (req, res) {
   res.render('landingPage', {
     isLoginPage: true
