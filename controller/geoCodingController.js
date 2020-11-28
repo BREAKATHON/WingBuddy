@@ -25,9 +25,15 @@ const geoCodingController = {
       const response = await got(url);
       
       const geo = JSON.parse(response.body)
-      console.log(geo);
+      if (geo == undefined) {
+        throw({ code: 500, message: "Unable to geocode address" });
+      }
 
       const first = geo[0];
+      if (first == undefined) {
+        throw({ code: 404, message: "No geocode location found for address" });
+      }
+
       const { lat, lon } = first;
 
       return {
