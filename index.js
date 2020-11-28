@@ -29,7 +29,7 @@ const serverURL = process.env.SERVER_URL;
 const appId = process.env.PARSE_APP_ID;
 const masterKey = process.env.PARSE_MASTER_KEY;
 const databaseUri = process.env.MONGODB_URI;
-const appName = process.env.APP_NAME || 'The Metronome by Soundbrenner';
+const appName = process.env.APP_NAME || 'WingBuddy';
 
 if (!databaseUri) {
   console.log('DATABASE_URI not specified, falling back to localhost.');
@@ -129,7 +129,7 @@ app.use('/', index);
 
 const port = process.env.PORT || 1337;
 const server = app.listen(port, function() {
-  console.log('The Metronome by Soundbrenner app listening on port %s', port);
+  console.log('WingBuddy app listening on port %s', port);
   console.log('GraphQL API running on http://localhost:%s/graphql', port);
   if (process.env.LOCAL == 'true') {
     console.log('GraphQL Playground running on http://localhost:%s/playground', port);
