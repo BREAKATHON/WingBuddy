@@ -17,11 +17,6 @@ form.column(method='post' action='')
     span(style='color: red; display: inline; float: none;') *
     input.form-control(type='text' id='postal_code' name='postal_code')
   .form-group.col-md-5
-    label(for='bday')
-      | Date of birth
-      span(style='color: red; display: inline; float: none;') *
-    input#bday(type='date' name='bday' required='')
-  .form-group.col-md-5
     label(for='email') Email
     span(style='color: red; display: inline; float: none;') *
     input.form-control(type='text' id='email' name='email')
@@ -30,23 +25,20 @@ form.column(method='post' action='')
     span(style='color: red; display: inline; float: none;') *
     input.form-control(type='text' id='tel' name='tel')
   .form-group.col-md-5
-    label(for='gender') Gender
-    select.form-control.col-md-5(id='gender' name='gender')
-      option Male
-      option Female
-      option Other
-      option Non binary
-      option I don&apos;t want to share this information
+    label(for='special_needs_skills') Skills
+    select.form-control.col-md-5(id='special_needs_skills' name='special_needs_skills')
+      option 1
+      option 2
+      option 3
+      option 4
+      option 5
   .form-group.col-md-5
-    label(for='shirt_size') Dress Size
-    input.form-control(type='text', id='shirt_size' name='shirt_size')
+    label(for='password_1')
+      | Password
+      span(style='color: red; display: inline; float: none;') *
+    input.form-control(type='pasword' id='password_1' name='password_1' aria-describedby='password_1')
+
   .form-group.col-md-5
-    label(for='interests') Interest
-    select.form-control.col-md-5(id='interests' name='interests')
-      option music
-      option culture
-      option sports
-      option gender
   button.btn.btn-primary(type='submit') Submit
   p.col-md-5 
     | Already a member?
