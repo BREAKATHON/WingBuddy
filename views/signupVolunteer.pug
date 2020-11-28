@@ -3,7 +3,7 @@ form.column(method='post' action='')
     label(for='name')
       | Name
       span(style='color: red; display: inline; float: none;') *
-    input.form-control(type='text' id='namenameid='name' aria-describedby='name')
+    input.form-control(type='text' id='name' id='name' aria-describedby='name')
   .form-group.col-md-5
     label(for='city') City
     span(style='color: red; display: inline; float: none;') *
@@ -27,7 +27,6 @@ form.column(method='post' action='')
     input.form-control(type='text' id='email' name='email')
   .form-group.col-md-5
     label(for='tel') Telephone
-    span(style='color: red; display: inline; float: none;' required='')
     span(style='color: red; display: inline; float: none;') *
     input.form-control(type='text' id='tel' name='tel')
   .form-group.col-md-5
