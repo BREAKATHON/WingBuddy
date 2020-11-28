@@ -3,6 +3,8 @@ var parseAppId = process.env.PARSE_APP_ID;
 Parse.initialize(parseAppId);
 Parse.serverURL = process.env.SERVER_URL;
 
+const geoCodingController = require('./geoCodingController');
+
 const userController = {
   signUp: async function (req, res) {
 
@@ -36,8 +38,24 @@ const userController = {
     // Add additional fields based on sign up persona
     if (signup_type == "seeker") {
       // Seeker sign up
-      const { age } = req.body;
-      user.set("age", age);
+
+      const Seeker = Parse.Object.extend("Seeker")
+      const seeker = new Seeker();
+
+      const { name, street, postal_code, city, special_needs, event_types } = req.body;
+
+      seeker.set("name", name);
+    
+      const coordinates = await geoCodingController.decode(street, postal_code, city);
+      const location = new Parse.GeoPoint({latitude: coordinates.lat, longitude: coordinates.lon});
+      seeker.set("location", location);
+
+      seeker.set("special_needs", special_needs);
+      seeker.set("event_types", event_types);
+
+      await seeker.save();
+
+      user.set("seeker", seeker);
     } else {
       // Volunteer sign up
 
@@ -63,4 +81,4 @@ const userController = {
   }
 }
 
-module.exports = userController
+module.exports = userController;

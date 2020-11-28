@@ -12,19 +12,34 @@ const express = require('express');
 const router = express.Router();
 
 const userController = require('../controller/userController');
+const geoCodingController = require('../controller/geoCodingController');
 
 // Parse Server plays nicely with the rest of your web routes
-router.get('/', function(req, res) {
+router.get('/', function (req, res) {
   res.render('landingPage');
 });
 
-router.get('/login', function(req, res) {
+router.get('/login', function (req, res) {
   res.render('landingPage', {
     isLoginPage: true
   });
 });
 
-router.get('/signup', function(req, res) {
+router.get('/geo', async function (req, res) {
+
+  const street = "Danziger Str. 122";
+  const postalCode = "10407";
+  const city = "Berlin";
+
+  try {
+    const coordinates = await geoCodingController.decode(street, postalCode, city);
+    res.status(200).send("Lat: " + coordinates.lat + " lon: " + coordinates.lon);
+  } catch (error) {
+    res.status(error.code).send(error.message);
+  }
+});
+
+router.get('/signup', function (req, res) {
 
   const { isVolunteer } = req.query;
 
@@ -34,7 +49,7 @@ router.get('/signup', function(req, res) {
   });
 });
 
-router.post('/signup', async function(req, res) {
+router.post('/signup', async function (req, res) {
 
   // Who is signing up?
   const { signup_type } = req.body;
@@ -57,7 +72,7 @@ router.post('/signup', async function(req, res) {
   }
 });
 
-router.post('/login', async function(req, res) {
+router.post('/login', async function (req, res) {
   try {
     const user = await userController.logIn(req, res);
     // Hooray! Let them use the app now.
