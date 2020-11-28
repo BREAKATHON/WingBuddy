@@ -9,10 +9,6 @@ form.column(method='post' action='')
       span(style='color: red; display: inline; float: none;') *
     input.form-control(type='text' id='name' name='name' aria-describedby='name')
   .form-group.col-md-5
-    label(for='city') City
-    span(style='color: red; display: inline; float: none;') *
-    input.form-control(type='text' id='city' name='city')
-  .form-group.col-md-5
     label(for='street') Street
     span(style='color: red; display: inline; float: none;') *
     input.form-control(type='text' id='street' name='street')
@@ -20,6 +16,10 @@ form.column(method='post' action='')
     label(for='postal_code') Zip code
     span(style='color: red; display: inline; float: none;') *
     input.form-control(type='text' id='postal_code' name='postal_code')
+  .form-group.col-md-5
+    label(for='city') City
+    span(style='color: red; display: inline; float: none;') *
+    input.form-control(type='text' id='city' name='city')
   .form-group.col-md-5
     label(for='email') Email
     span(style='color: red; display: inline; float: none;') *
@@ -41,7 +41,11 @@ form.column(method='post' action='')
       | Password
       span(style='color: red; display: inline; float: none;') *
     input.form-control(type='pasword' id='password_1' name='password_1' aria-describedby='password_1')
-
+  .form-group.col-md-5
+    label(for='password_2')
+      | Password
+      span(style='color: red; display: inline; float: none;') *
+    input.form-control(type='pasword' id='password_1' name='password_1' aria-describedby='password_1')
   .form-group.col-md-5
   button.btn.btn-primary(type='submit') Submit
   p.col-md-5 

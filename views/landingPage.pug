@@ -8,18 +8,10 @@ else
   section.container 
     ul.nav.nav-tabs
       li.nav-item
-        if isSeeker
-          a.nav-link.active(href='#')
-            | I am looking for a buddy
-        else 
-          a.nav-link(href='/signup?isVolunteer=false')
+          a.nav-link(href=(isSeeker ? '#' : '/signup?isVolunteer=false') class=(isSeeker && 'active'))
             | I am looking for a buddy
       li.nav-item
-        if isSeeker
-          a.nav-link(href='/signup?isVolunteer=true')
-            | I want to become a buddy
-        else 
-          a.nav-link.active(href='#')
+          a.nav-link(href=(isSeeker ? '/signup?isVolunteer=true' : '#') class=(!isSeeker && 'active'))
             | I want to become a buddy
     if isSeeker
       include signupSeeker.pug
