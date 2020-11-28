@@ -11,7 +11,9 @@
 */
 
 // read local environment variables
-require('dotenv').config();
+if (process.env.LOCAL || false) {
+  require('dotenv').config();
+}
 
 const express = require('express');
 // PARSE SERVER (https://github.com/parse-community/parse-server/wiki)
