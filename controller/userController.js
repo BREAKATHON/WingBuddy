@@ -6,34 +6,52 @@ Parse.serverURL = process.env.SERVER_URL;
 const geoCodingController = require('./geoCodingController');
 
 const userController = {
-  signUp: async function (req, res) {
+  signUp: async function (req) {
 
-    const { email, password_1, password_2, signup_type } = req.body;
+    const { email, password_1, password_2, signup_type, name, street, postal_code, city } = req.body;
 
     if (email == undefined) {
-      res.status(400).send("No email set");
-      return;
+      throw({ code: 400, message: "No email set" });
     }
 
     if (password_1 == undefined || password_2 == undefined) {
-      res.status(400).send("No password set");
-      return;
+      throw({ code: 400, message: "No password set" });
     }
 
     if (password_1 != password_2) {
-      res.status(400).send("Passwords don't match");
-      return;
+      throw({ code: 400, message: "Passwords don't match" });
+    }
+
+    if (name == undefined) {
+      throw({ code: 400, message: "No name found" });
+    }
+
+    if (street == undefined) {
+      throw({ code: 400, message: "No street found" });
+    }
+
+    if (postal_code == undefined) {
+      throw({ code: 400, message: "No postal code found" });
+    }
+
+    if (city == undefined) {
+      throw({ code: 400, message: "No city found" });
     }
 
     if (signup_type == undefined) {
-      res.status(400).send("No sign up type detected");
-      return;
+      throw({ code: 400, message: "No sign up type detected" });
     }
 
     const user = new Parse.User();
     user.set("username", email);
     user.set("password", password_1);
     user.set("email", email);
+    user.set("name", name);
+    user.set("gender", gender);
+
+    const coordinates = await geoCodingController.decode(street, postal_code, city);
+    const location = new Parse.GeoPoint({latitude: coordinates.lat, longitude: coordinates.lon});
+    user.set("location", location);
 
     // Add additional fields based on sign up persona
     if (signup_type == "seeker") {
@@ -42,14 +60,9 @@ const userController = {
       const Seeker = Parse.Object.extend("Seeker")
       const seeker = new Seeker();
 
-      const { name, street, postal_code, city, special_needs, event_types } = req.body;
-
-      seeker.set("name", name);
+      // Seeker fields
+      const { special_needs, event_types } = req.body;
     
-      const coordinates = await geoCodingController.decode(street, postal_code, city);
-      const location = new Parse.GeoPoint({latitude: coordinates.lat, longitude: coordinates.lon});
-      seeker.set("location", location);
-
       seeker.set("special_needs", special_needs);
       seeker.set("event_types", event_types);
 
@@ -58,7 +71,20 @@ const userController = {
       user.set("seeker", seeker);
     } else {
       // Volunteer sign up
+      const Volunteer = Parse.Object.extend("Volunteer")
+      const volunteer = new Volunteer();
 
+      // Volunteer fields
+      const { special_needs_skills, event_types, telephone, description } = req.body;
+
+      volunteer.set("special_needs_skills", special_needs_skills);
+      volunteer.set("event_types", event_types);
+      volunteer.set("telephone", telephone);
+      volunteer.set("description", description);
+
+      await volunteer.save();
+
+      user.set("volunteer", volunteer);
     }
 
     return await user.signUp();
@@ -68,13 +94,11 @@ const userController = {
     const { username, password } = req.body;
 
     if (username == undefined) {
-      res.status(429).send("No username set");
-      return;
+      throw({ code: 400, message: "No username set" });
     }
 
     if (password == undefined) {
-      res.status(429).send("No password set");
-      return;
+      throw({ code: 400, message: "No password set" });
     }
 
     return await Parse.User.logIn(username, password);

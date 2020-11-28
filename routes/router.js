@@ -55,15 +55,14 @@ router.post('/signup', async function (req, res) {
   const { signup_type } = req.body;
 
   try {
-    const user = await userController.signUp(req, res);
+    const user = await userController.signUp(req);
     // Hooray! Let them use the app now.
     res.render('dashboard', {
       user: user
     });
   } catch (error) {
     // Show the error message somewhere and let the user try again.
-
-    console.log("Signup Error: " + error.code + " " + error.message);
+    console.log("Signup Error (" + error.code + "): " + error.message);
     res.render('landingPage', {
       isLoginPage: false,
       isSeeker: (signup_type == "seeker"),

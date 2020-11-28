@@ -1,4 +1,8 @@
 form.column(method='post' action='')
+  if error != undefined
+    .form-group.col-md-5
+      .alert.alert-danger(role="alert")
+        | Error (#{error.code || "No Error code"}): #{error.message || "No error message"}
   .form-group.col-md-5
     label(for='name')
       | Name
