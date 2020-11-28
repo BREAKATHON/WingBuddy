@@ -1,21 +1,21 @@
 form.column(method='post' action='')
   .form-group.col-md-5
-    label(for='exampleInputEmail1')
+    label(for='name')
       | Name
       span(style='color: red; display: inline; float: none;') *
-    input.form-control(type='text' id='' aria-describedby='name')
+    input.form-control(type='text' id='namenameid='name' aria-describedby='name')
   .form-group.col-md-5
-    label(for='City') City
+    label(for='city') City
     span(style='color: red; display: inline; float: none;') *
-    input.form-control(type='text' id='')
+    input.form-control(type='text' id='city' name='city')
   .form-group.col-md-5
-    label(for='Street') Street
+    label(for='street') Street
     span(style='color: red; display: inline; float: none;') *
-    input.form-control(type='text' id='')
+    input.form-control(type='text' id='street' name='street')
   .form-group.col-md-5
-    label(for='Zip') Zip code
+    label(for='postal_code') Zip code
     span(style='color: red; display: inline; float: none;') *
-    input.form-control(type='text' id='')
+    input.form-control(type='text' id='postal_code' name='postal_code')
   .form-group.col-md-5
     label(for='bday')
       | Date of birth
@@ -24,26 +24,26 @@ form.column(method='post' action='')
   .form-group.col-md-5
     label(for='email') Email
     span(style='color: red; display: inline; float: none;') *
-    input.form-control(type='password' id='')
+    input.form-control(type='text' id='email' name='email')
   .form-group.col-md-5
-    label(for='number') Telephone
+    label(for='tel') Telephone
     span(style='color: red; display: inline; float: none;' required='')
     span(style='color: red; display: inline; float: none;') *
-    input.form-control(type='password' id='')
+    input.form-control(type='text' id='tel' name='tel')
   .form-group.col-md-5
-    label(for='exampleFormControlSelect1') Gender
-    select.form-control.col-md-5(id='')
+    label(for='gender') Gender
+    select.form-control.col-md-5(id='gender' name='gender')
       option Male
       option Female
       option Other
       option Non binary
       option I don&apos;t want to share this information
   .form-group.col-md-5
-    label(for='exampleInputPassword1') Dress Size
-    input#exampleInputPassword1.form-control(type='password')
+    label(for='dress_size') Dress Size
+    input#exampleInputPassword1.form-control(type='text', id='dress_size' name='dress_size')
   .form-group.col-md-5
-    label(for='exampleFormControlSelect1') Interest
-    select.form-control.col-md-5(id='')
+    label(for='interests') Interest
+    select.form-control.col-md-5(id='interests' name='interests')
       option music
       option culture
       option sports
