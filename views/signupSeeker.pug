@@ -3,9 +3,16 @@ form.column(method='post' action='/signup')
     h3 
       span.col-auto.badge.badge-warning
       | Registration as a buddy seeker
-      if error != undefined
-        .alert.alert-danger(role="alert")
-          | Error (#{error.code || "No Error code"}): #{error.message || "No error message"}
+  if error != undefined
+    .form-group.col-md-5 
+      .alert.alert-danger(role="alert")
+        | Error (#{error.code || "No Error code"}): #{error.message || "No error message"}
+  .form-group.col-md-5 
+    label(for='name')
+      | Email address 
+      span(style='color: red; display: inline; float: none;') 
+        | *
+    input.form-control(type='string' name='name' aria-describedby='emailHelp' placeholder='Enter your name' required='') 
   .form-group.col-md-5 
     label(for='email')
       | Email address 
