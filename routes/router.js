@@ -25,26 +25,35 @@ router.get('/login', function(req, res) {
 });
 
 router.get('/signup', function(req, res) {
+
+  const { isVolunteer } = req.query;
+
   res.render('landingPage', {
-    isLoginPage: false
+    isLoginPage: false,
+    isSeeker: (isVolunteer == undefined || isVolunteer == false)
   });
 });
 
 router.post('/signup', async function(req, res) {
+
+  // Who is signing up?
+  const { signup_type } = req.body;
+
   try {
     const user = await userController.signUp(req, res);
     // Hooray! Let them use the app now.
     res.render('dashboard', {
       user: user
     });
-    return;
   } catch (error) {
     // Show the error message somewhere and let the user try again.
+
     console.log("Signup Error: " + error.code + " " + error.message);
     res.render('landingPage', {
+      isLoginPage: false,
+      isSeeker: (signup_type == "seeker"),
       error: error
     });
-    return;
   }
 });
 

@@ -6,20 +6,25 @@ Parse.serverURL = process.env.SERVER_URL;
 const userController = {
   signUp: async function (req, res) {
 
-    const { email, password_1, password_2 } = req.body;
+    const { email, password_1, password_2, signup_type } = req.body;
 
     if (email == undefined) {
-      res.status(429).send("No email set");
+      res.status(400).send("No email set");
       return;
     }
 
     if (password_1 == undefined || password_2 == undefined) {
-      res.status(429).send("No password set");
+      res.status(400).send("No password set");
       return;
     }
 
     if (password_1 != password_2) {
-      res.status(429).send("Passwords don't match");
+      res.status(400).send("Passwords don't match");
+      return;
+    }
+
+    if (signup_type == undefined) {
+      res.status(400).send("No sign up type detected");
       return;
     }
 
@@ -28,8 +33,16 @@ const userController = {
     user.set("password", password_1);
     user.set("email", email);
 
-    // other fields can be set just like with Parse.Object
-    // user.set("phone", "415-392-0202");
+    // Add additional fields based on sign up persona
+    if (signup_type == "seeker") {
+      // Seeker sign up
+      const { age } = req.body;
+      user.set("age", age);
+    } else {
+      // Volunteer sign up
+
+    }
+
     return await user.signUp();
   },
   logIn: async function (req, res) {
