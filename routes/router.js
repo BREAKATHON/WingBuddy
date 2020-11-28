@@ -12,6 +12,7 @@ const express = require('express');
 const router = express.Router();
 
 const userController = require('../controller/userController');
+const matchController = require('../controller/matchController');
 const geoCodingController = require('../controller/geoCodingController');
 
 // Parse Server plays nicely with the rest of your web routes
@@ -27,6 +28,46 @@ router.get('/login', function (req, res) {
   res.render('landingPage', {
     isLoginPage: true
   });
+});
+
+router.get('/matchTest', async function (req, res) {
+  
+  // Dummy Seeker
+  const Seeker = Parse.Object.extend("Seeker");
+  const seeker = new Seeker();
+
+  const location = new Parse.GeoPoint({latitude: 52.5356612, longitude: 13.4334547});
+  seeker.set("location", location);
+
+  // optional: special needs
+  // seeker.set("special_needs", ["special"]);
+
+  // Dummy Event
+  const Event = Parse.Object.extend("Event");
+  const event = new Event();
+
+  event.set("event_type", "concert");
+  
+  // Query
+  try {
+    const matchedUsers = await matchController.findMatches(event, seeker);
+
+    var responseString = "Found " + matchedUsers.length + " matches.\n";
+    var i;
+    for (i = 0; i < matchedUsers.length; i++) {
+      const user = matchedUsers[i];
+      const volunteerData = user.get("volunteer");
+      responseString += "Match #" + (i + 1) + ":\n";
+      responseString += "\tName: " + user.get("name");
+      responseString += "\tCity: " + user.get("city");
+      responseString += "\tTelephone: " + volunteerData.get("telephone");
+    } 
+
+    res.status(200).send(responseString);
+  } catch(error) {
+    console.error(error);
+    res.status(error.code).send(error.message);
+  }
 });
 
 router.get('/geo', async function (req, res) {
