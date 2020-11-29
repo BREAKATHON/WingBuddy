@@ -1,4 +1,9 @@
 form.column(method='post' action='/signup')
+  .form-group.col-md-5 
+    br
+    h3 
+      span.col-auto.badge.badge-warning
+      | Registration as a volunteer
   if error != undefined
     .form-group.col-md-5
       .alert.alert-danger(role="alert")

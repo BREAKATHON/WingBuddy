@@ -15,6 +15,8 @@ body
   nav.navbar.navbar-expand-lg.navbar-light.bg-light 
     a.navbar-brand(href='/')
       | WingBuddy 
+      if user != undefined && user.get("volunteer") != undefined
+        span.badge.badge-secondary Volunteer
     button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarColor03' aria-controls='navbarColor03' aria-expanded='false' aria-label='Toggle navigation') 
       span.navbar-toggler-icon#navbarColor03.collapse.navbar-collapse 
     ul.navbar-nav.mr-auto 
