@@ -4,5 +4,24 @@ include partials/header.pug
 if isLoginPage
  include login.pug 
 else 
+<<<<<<< HEAD
   include signup.pug
 include partials/footer.pug
+=======
+  section.jumbotron.d-flex.flex-row.justify-content-end
+    h1.mr-5.text-info 
+      | Registration 
+  section.container 
+    ul.nav.nav-tabs
+      li.nav-item
+          a.nav-link(href=(isSeeker ? '#' : '/?isVolunteer=false') class=(isSeeker && 'active'))
+            | I am looking for a buddy
+      li.nav-item
+          a.nav-link(href=(isSeeker ? '/?isVolunteer=true' : '#') class=(!isSeeker && 'active'))
+            | I want to become a buddy
+    if isSeeker
+      include signupSeeker.pug
+    else 
+      include signupVolunteer.pug
+include partials/footer.pug
+>>>>>>> 5a0b63fb0c7e3cfa0295b8df5074ca8837c7a342

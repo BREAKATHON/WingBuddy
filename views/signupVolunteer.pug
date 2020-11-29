@@ -47,6 +47,33 @@ form.column(method='post' action='')
   label.form-check-label(for='defaultCheck1')
     | Option5
 
+    label(for='special_needs') I can attend to these special needs
+    select.form-control.col-md-5(id='special_needs_skills' name='special_needs_skills' multiple)
+      option(value="guide_vision_impaired") Vision Impaired
+      option(value="guide_blind") Blind
+      option(value="psychological_support") Psychological support
+      option(value="nursing") Nursing
+      option(value="handle_wheelchair") I am in a wheelchair
+      option(value="sign_language") Sign language
+      option(value="trauma_awareness") Trauma awareness
+      option(value="neurodiversity_awareness") Neurodiversity awareness
+      option(value="intellectual_disability_awereness") Intellectual disability awereness
+      option(value="speech_with_gestures") Speech with gestures
+      option(value="LGBTQIAplus_awareness") LGBTQIAplus awareness
+  .form-group.col-md-5
+    label(for='event_types') I am interested in these event types
+    select.form-control.col-md-5(id='event_types' name='event_types' multiple)
+      option(value="Theater_Kunst") theater / art
+      option(value="Ausflüge_Cafe") excursion / coffee
+      option(value="Sport_Action") sports / action
+      option(value="Konzerte_Festivals") concerts / festivals
+      option(value="Natur_Sightseeing") nature / sightseeing
+      option(value="Andere") other
+  .form-group.col-md-5
+    label(for='description') 
+      | Two sentences about myself (keep the language accessible)
+      span(style='color: red; display: inline; float: none;') *
+    input.form-control(type='text' id='description' name='description')
   .form-group.col-md-5
     label(for='password_1')
       | Password
@@ -58,7 +85,8 @@ form.column(method='post' action='')
       span(style='color: red; display: inline; float: none;') *
     input.form-control(type='pasword' id='password_2' name='password_2' aria-describedby='password_2')
   .form-group.col-md-5
-  button.btn.btn-primary(type='submit') Submit
+    input(type="hidden" id="signup_type" name="signup_type" value="volunteer")
+    button.btn.btn-outline-warning.text-dark.font-weight-bold(type='submit') Submit
   p.col-md-5 
     | Already a member?
     a.text-warning(href='/login') 

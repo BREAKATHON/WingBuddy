@@ -9,10 +9,10 @@ form.column(method='post' action='/signup')
         | Error (#{error.code || "No Error code"}): #{error.message || "No error message"}
   .form-group.col-md-5 
     label(for='name')
-      | Email address 
+      | Name
       span(style='color: red; display: inline; float: none;') 
         | *
-    input.form-control(type='string' name='name' aria-describedby='emailHelp' placeholder='Enter your name' required='') 
+    input.form-control(type='string' name='name' aria-describedby='nameHelp' placeholder='Enter your name' required='')
   .form-group.col-md-5 
     label(for='email')
       | Email address 
@@ -22,17 +22,43 @@ form.column(method='post' action='/signup')
     small#emailHelp.form-text.text-muted
     | We&apos;ll never share your email with anyone else. 
   .form-group.col-md-5
-    label(for='inputPassword1') 
+    label(for='street') Street
+    span(style='color: red; display: inline; float: none;') *
+    input.form-control(type='text' id='street' name='street')
+  .form-group.col-md-5
+    label(for='postal_code') Zip code
+    span(style='color: red; display: inline; float: none;') *
+    input.form-control(type='text' id='postal_code' name='postal_code')
+  .form-group.col-md-5
+    label(for='city') City
+    span(style='color: red; display: inline; float: none;') *
+    input.form-control(type='text' id='city' name='city')
+  .form-group.col-md-5
+    label(for='special_needs') Special needs
+    select.form-control.col-md-5(id='special_needs_skills' name='special_needs_skills' multiple)
+      option(value="guide_vision_impaired") Vision Impaired
+      option(value="guide_blind") Blind
+      option(value="psychological_support") Psychological support
+      option(value="nursing") Nursing
+      option(value="handle_wheelchair") I am in a wheelchair
+      option(value="sign_language") Sign language
+      option(value="trauma_awareness") Trauma awareness
+      option(value="neurodiversity_awareness") Neurodiversity awareness
+      option(value="intellectual_disability_awereness") Intellectual disability awereness
+      option(value="speech_with_gestures") Speech with gestures
+      option(value="LGBTQIAplus_awareness") LGBTQIAplus awareness
+  .form-group.col-md-5
+    label(for='password_1') 
       | Password 
       span(style='color: red; display: inline; float: none;') 
         | * 
     input.form-control(type='password' name='password_1' placeholder='Password' required='') 
   .form-group.col-md-5
-    label(for='inputPassword2') 
+    label(for='password_2') 
       | Confirm password 
       span(style='color: red; display: inline; float: none;') 
         | * 
-    input.form-control(type='password' name='password_2' placeholder='Password' required='') 
+    input.form-control(type='passw.text-dark.font-weight-boldord' name='password_2' placeholder='Password' required='') 
   .form-group.col-md-5
     input(type="hidden" id="signup_type" name="signup_type" value="seeker")
     button.btn.btn-outline-warning(type='submit') 
