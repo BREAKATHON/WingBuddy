@@ -29,7 +29,7 @@ form.column(method='post' action='')
     span(style='color: red; display: inline; float: none;') *
     input.form-control(type='text' id='tel' name='tel')
   .form-group.col-md-5
-    label(for='special_needs') Special needs skills
+    label(for='special_needs') I can attend to these special needs
     select.form-control.col-md-5(id='special_needs_skills' name='special_needs_skills' multiple)
       option(value="guide_vision_impaired") Vision Impaired
       option(value="guide_blind") Blind
@@ -42,6 +42,20 @@ form.column(method='post' action='')
       option(value="intellectual_disability_awereness") Intellectual disability awereness
       option(value="speech_with_gestures") Speech with gestures
       option(value="LGBTQIAplus_awareness") LGBTQIAplus awareness
+  .form-group.col-md-5
+    label(for='event_types') I am interested in these event types
+    select.form-control.col-md-5(id='event_types' name='event_types' multiple)
+      option(value="concert") Concert
+      option(value="nature") Nature
+      option(value="sports") Sports
+      option(value="sightseeing") Sightseeing
+      option(value="excursions_cafe") Café
+      option(value="telephone_buddy") Telephone Buddy
+  .form-group.col-md-5
+    label(for='description') 
+      | Two sentences about myself (keep the language accessible)
+      span(style='color: red; display: inline; float: none;') *
+    input.form-control(type='text' id='description' name='description')
   .form-group.col-md-5
     label(for='password_1')
       | Password
