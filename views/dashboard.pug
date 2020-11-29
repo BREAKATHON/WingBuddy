@@ -5,6 +5,7 @@ section.jumbotron.d-flex.flex-row.justify-content-end
 section.container 
   div.remark
     p User logged in with email "#{user.get("email")}".
+<<<<<<< HEAD
   form.column(method='post' action='/eventBuddyRequest')
     .form-group.col-md-5
       label.mr-sm-2(for='inlineFormCustomSelect') Preference
@@ -23,4 +24,32 @@ section.container
       input.form-control(type='string' placeholder='Description')
     .form-group.col-md-5
       button.btn.btn-outline-warning.text-dark.font-weight-bold(type='submit') Submit
+=======
+  if user.get("seeker") != undefined
+    form.column(method='post' action='/eventBuddyRequest')
+      .form-group.col-md-5
+        label.mr-sm-2(for='inlineFormCustomSelect') Preference
+        select.custom-select.mr-sm-2(id='event_type' name='event_type') Event type
+          option(value="Theater_Kunst") theater / art
+          option(value="Ausflüge_Cafe") excursion / coffee
+          option(value="Sport_Action") sports / action
+          option(value="Konzerte_Festivals") concerts / festivals
+          option(value="Natur_Sightseeing") nature / sightseeing
+          option(value="Andere") other
+      .form-group.col-md-5
+        input.form-control(type='string' placeholder='Title')
+      .form-group.col-md-5
+        input.form-control(type='Date' placeholder='Date')
+      .form-group.col-md-5
+        input.form-control(type='string' placeholder='Description')
+      .form-group.col-md-5
+        button.btn.btn-primary(type='submit') Submit
+  - var volunteer = user.get("volunteer")
+  if volunteer != undefined
+    p Thank you for beeing a volunteer!
+    if volunteer.get("is_screened")
+      p Your application is approved and you can now receive buddy requests!
+    else
+      p Our team will shortly review your application. Check back in to see if your account has been verified.
+>>>>>>> 387ed2d20e6f115ac11476aef0beaf27f5249396
 include partials/footer.pug

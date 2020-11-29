@@ -178,8 +178,6 @@ router.post('/eventBuddyRequest', async function (req, res) {
     return;
   }
 
-  await user.fetch();
-
   // Dummy Event
   const Event = Parse.Object.extend("Event");
   const event = new Event();
@@ -188,20 +186,56 @@ router.post('/eventBuddyRequest', async function (req, res) {
   
   // Query
   try {
+    // Fetch current user data
+    await user.fetch();
+
+    // Find matched users using current user (seeker) and event data
     const matchedUsers = await matchController.findMatches(event, user);
 
-    var responseString = "Found " + matchedUsers.length + " matches.\n";
+    // var responseString = "Found " + matchedUsers.length + " matches.\n";
     var i;
+    // for (i = 0; i < matchedUsers.length; i++) {
+    //   const user = matchedUsers[i];
+    //   const volunteerData = user.get("volunteer");
+    //   responseString += "Match #" + (i + 1) + ":\n";
+    //   responseString += "\tName: " + user.get("name");
+    //   responseString += "\tCity: " + user.get("city");
+    //   responseString += "\tTelephone: " + volunteerData.get("telephone");
+    // } 
+    // console.log(responseString);
+
+    var imageUrls = [
+      "public/images/match1.jpg",
+      "public/images/match2.jpg",
+      "public/images/match3.jpg",
+      "public/images/match4.jpg",
+    ]
+    var matchData = [];
     for (i = 0; i < matchedUsers.length; i++) {
       const user = matchedUsers[i];
-      const volunteerData = user.get("volunteer");
-      responseString += "Match #" + (i + 1) + ":\n";
-      responseString += "\tName: " + user.get("name");
-      responseString += "\tCity: " + user.get("city");
-      responseString += "\tTelephone: " + volunteerData.get("telephone");
-    } 
+      const volunteer = user.get("volunteer");
+      if (user == undefined) {
+        continue;
+      }
+      if (volunteer == undefined) {
+        continue;
+      }
+      const imageUrl = imageUrls[i % (imageUrls.length - 1)];
 
-    res.status(200).send(responseString);
+      const data = {
+        name: user.get("name") || "No name",
+        telephone: volunteer.get("telephone") || "No telephone number",
+        description: volunteer.get("description") || "No description",
+        special_needs_skills: volunteer.get("special_needs_skills") || "No special needs skills",
+        city: user.get("city") || "No city",
+        imageUrl: imageUrl
+      }
+      matchData.push(data);
+    }
+
+    res.render('matchingCards', {
+      matchData: matchData
+    });
   } catch(error) {
     console.error(error);
     res.status(error.code).send(error.message);
