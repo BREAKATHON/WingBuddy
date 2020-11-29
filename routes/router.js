@@ -34,10 +34,18 @@ router.get('/', function (req, res) {
   const isVolunteerString = req.query.isVolunteer;
   const isVolunteer = (isVolunteerString == 'true')
 
-  res.render('landingPage', {
-    isLoginPage: false,
-    isSeeker: !isVolunteer
-  });
+  const user = Parse.User.current();
+  if (user == undefined) {
+    res.render('landingPage', {
+      isLoginPage: false,
+      isSeeker: !isVolunteer
+    });
+    return;
+  } else {
+    res.render('dashboard', {
+      user: user
+    });
+  } 
 });
 
 router.get('/matching', function (req, res) {
@@ -52,7 +60,7 @@ router.get('/events', function (req, res) {
   res.render('eventForm');
 });
 
-router.get('/dashboard', function (req, res) {
+router.get('/dashboard', async function (req, res) {
 
   const user = Parse.User.current();
   if (user == undefined) {
@@ -60,6 +68,8 @@ router.get('/dashboard', function (req, res) {
     res.redirect('/login');
     return;
   }
+
+  await user.fetch();
 
   res.render('dashboard', {
     user: user
@@ -213,18 +223,6 @@ router.post('/eventBuddyRequest', async function (req, res) {
     // Find matched users using current user (seeker) and event data
     const matchedUsers = await matchController.findMatches(event, user);
 
-    // var responseString = "Found " + matchedUsers.length + " matches.\n";
-    var i;
-    // for (i = 0; i < matchedUsers.length; i++) {
-    //   const user = matchedUsers[i];
-    //   const volunteerData = user.get("volunteer");
-    //   responseString += "Match #" + (i + 1) + ":\n";
-    //   responseString += "\tName: " + user.get("name");
-    //   responseString += "\tCity: " + user.get("city");
-    //   responseString += "\tTelephone: " + volunteerData.get("telephone");
-    // } 
-    // console.log(responseString);
-
     var imageUrls = [
       "public/images/match1.jpg",
       "public/images/match2.jpg",
@@ -235,6 +233,8 @@ router.post('/eventBuddyRequest', async function (req, res) {
       matches: [],
       eventId: event.id
     };
+    
+    var i;
     for (i = 0; i < matchedUsers.length; i++) {
       const user = matchedUsers[i];
       const volunteer = user.get("volunteer");

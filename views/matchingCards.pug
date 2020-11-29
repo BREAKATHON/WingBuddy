@@ -11,6 +11,7 @@ section.jumbotron.d-flex.flex-row.justify-content-end
         h5.card-title= match.name
         p.card-text= match.description
         p.card-text Telephone: #{match.telephone}
+        p.card-text City: #{match.city}
       form(method="post" action="/sendBuddyRequest")
         input(type="hidden" id="eventId" name="eventId" value=matchData.eventId)
         input(type="hidden" id="userId" name="userId" value=match.userId)
