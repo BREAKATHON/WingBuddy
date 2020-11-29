@@ -8,15 +8,15 @@ section.container
       a(href="/logout") Logout
   if user.get("seeker") != undefined
     form.column(method='post' action='/eventBuddyRequest')
-    .form-group.col-md-5
-      label.mr-sm-2(for='inlineFormCustomSelect') Event type
-      select.custom-select.mr-sm-2(id='event_type' name='event_type') Event type
-        option(value="Theater_Kunst") theater / art
-        option(value="Ausflüge_Cafe") excursion / coffee
-        option(value="Sport_Action") sports / action
-        option(value="Konzerte_Festivals") concerts / festivals
-        option(value="Natur_Sightseeing") nature / sightseeing
-        option(value="Andere") other
+      .form-group.col-md-5
+        label.mr-sm-2(for='inlineFormCustomSelect') Event type
+        select.custom-select.mr-sm-2(id='event_type' name='event_type') Event type
+          option(value="Theater_Kunst") theater / art
+          option(value="Ausflüge_Cafe") excursion / coffee
+          option(value="Sport_Action") sports / action
+          option(value="Konzerte_Festivals") concerts / festivals
+          option(value="Natur_Sightseeing") nature / sightseeing
+          option(value="Andere") other
       .form-group.col-md-5
         input.form-control(type='string' placeholder='Title')
       .form-group.col-md-5
