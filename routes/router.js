@@ -14,9 +14,27 @@ const router = express.Router();
 const userController = require('../controller/userController');
 const matchController = require('../controller/matchController');
 
-// Parse Server plays nicely with the rest of your web routes
+/*
+ 
+  d888b  d88888b d888888b 
+ 88' Y8b 88'     `~~88~~' 
+ 88      88ooooo    88    
+ 88  ooo 88~~~~~    88    
+ 88. ~8~ 88.        88    
+  Y888P  Y88888P    YP    
+                          
+                          
+ 
+*/
+
 router.get('/', function (req, res) {
-  res.render('landingPage');
+  const isVolunteerString = req.query.isVolunteer;
+  const isVolunteer = (isVolunteerString == 'true')
+
+  res.render('landingPage', {
+    isLoginPage: false,
+    isSeeker: !isVolunteer
+  });
 });
 
 router.get('/matching', function (req, res) {
@@ -77,15 +95,18 @@ router.get('/matchTest', async function (req, res) {
   }
 });
 
-router.get('/signup', function (req, res) {
-
-  const { isVolunteer } = req.query;
-
-  res.render('landingPage', {
-    isLoginPage: false,
-    isSeeker: (isVolunteer == undefined || isVolunteer == false)
-  });
-});
+/*
+ 
+ d8888b.  .d88b.  .d8888. d888888b 
+ 88  `8D .8P  Y8. 88'  YP `~~88~~' 
+ 88oodD' 88    88 `8bo.      88    
+ 88~~~   88    88   `Y8b.    88    
+ 88      `8b  d8' db   8D    88    
+ 88       `Y88P'  `8888Y'    YP    
+                                   
+                                   
+ 
+*/
 
 router.post('/signup', async function (req, res) {
 
