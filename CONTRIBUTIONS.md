@@ -6,7 +6,7 @@ You can start either with a pull request or by checking the communication channe
 
 ## Communication channels
 
-Under construction. For now we have the slack channels that were used during the hackathon. You can reach out here on github for an invite, since the slack contains personal info. We will likely soon look for a more longterm mode of project communication and community building!
+Under construction. For now we have the slack channels that were used during the hackathon. You can reach out here on github to any of the existing contributors to inquire for an invite, since the slack still contains personal info. We will likely soon look for a longterm mode of project communication and community building!
 
 ## Original hackathon team
 
