@@ -1,4 +1,4 @@
-form.column(method='post' action='')
+form.column(method='post' action='/signup')
   if error != undefined
     .form-group.col-md-5
       .alert.alert-danger(role="alert")
@@ -25,9 +25,9 @@ form.column(method='post' action='')
     span(style='color: red; display: inline; float: none;') *
     input.form-control(type='text' id='email' name='email')
   .form-group.col-md-5
-    label(for='tel') Telephone
+    label(for='telephone') Telephone
     span(style='color: red; display: inline; float: none;') *
-    input.form-control(type='text' id='tel' name='tel')
+    input.form-control(type='text' id='telephone' name='telephone')
   .form-group.col-md-5
     label(for='special_needs') I can attend to these special needs
     select.form-control.col-md-5(id='special_needs_skills' name='special_needs_skills' multiple)
