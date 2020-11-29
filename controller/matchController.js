@@ -27,20 +27,24 @@ const matchController = {
     // Optional
     const special_needs = seeker.get("special_needs");
 
-    // Construct query
-    const query = new Parse.Query(Parse.User);
-    query.include("volunteer");
+    // Construct inner query
+    const Volunteer = Parse.Object.extend("Volunteer");
+    const innerQuery = new Parse.Query(Volunteer);
 
     // Find volunteers where the array in event_types contains the event type.
-    // query.equalTo("volunteer.event_types", event_type);
+    innerQuery.equalTo("event_types", event_type);
 
     if (special_needs != undefined) {
       // Find volunteers where the array in special_needs_skills contains all of the elements in the seeker array special_needs.
-      // query.containsAll("volunteer.special_needs", special_needs);
+      innerQuery.containsAll("special_needs", special_needs);
     }
 
     // Only consider screened / vetted volunteers
-    query.equalTo("volunteer.is_screened", true);
+    innerQuery.equalTo("is_screened", true);
+
+    // Construct outer query
+    const query = new Parse.Query(Parse.User);
+    query.matchesQuery("volunteer", innerQuery);
 
     // Find volunteers who are in close proximity to the seeker
     if (radius_km == undefined) {
@@ -50,6 +54,7 @@ const matchController = {
       query.withinKilometers("location", seeker_location, radius_km, sorted);
     }
 
+    query.include("volunteer");
     query.limit(limit)
 
     return await query.find();
