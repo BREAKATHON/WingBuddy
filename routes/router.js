@@ -11,6 +11,8 @@
 const express = require('express');
 const router = express.Router();
 
+var Parse = require('../controller/Parse')
+
 const userController = require('../controller/userController');
 const matchController = require('../controller/matchController');
 
@@ -50,6 +52,7 @@ router.get('/events', function (req, res) {
 });
 
 router.get('/dashboard', function (req, res) {
+
   const user = Parse.User.current();
   if (user == undefined) {
     // User not logged, in, redirect to login
