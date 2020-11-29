@@ -11,6 +11,8 @@
 const express = require('express');
 const router = express.Router();
 
+var Parse = require('../controller/Parse')
+
 const userController = require('../controller/userController');
 const matchController = require('../controller/matchController');
 
@@ -47,6 +49,20 @@ router.get('/matchingCards', function (req, res) {
 
 router.get('/events', function (req, res) {
   res.render('eventForm');
+});
+
+router.get('/dashboard', function (req, res) {
+
+  const user = Parse.User.current();
+  if (user == undefined) {
+    // User not logged, in, redirect to login
+    res.redirect('/login');
+    return;
+  }
+
+  res.render('dashboard', {
+    user: user
+  });
 });
 
 router.get('/login', function (req, res) {
@@ -145,6 +161,84 @@ router.post('/login', async function (req, res) {
       error: error
     });
     return;
+  }
+});
+
+router.post('/eventBuddyRequest', async function (req, res) {
+
+  const { event_type } = req.body;
+  if (event_type == undefined) {
+    res.status(500).send("No event_type set");
+    return;
+  }
+
+  const user = Parse.User.current();
+  if (user == undefined) {
+    res.status(500).send("No user found");
+    return;
+  }
+
+  // Dummy Event
+  const Event = Parse.Object.extend("Event");
+  const event = new Event();
+
+  event.set("event_type", event_type);
+  
+  // Query
+  try {
+    // Fetch current user data
+    await user.fetch();
+
+    // Find matched users using current user (seeker) and event data
+    const matchedUsers = await matchController.findMatches(event, user);
+
+    // var responseString = "Found " + matchedUsers.length + " matches.\n";
+    var i;
+    // for (i = 0; i < matchedUsers.length; i++) {
+    //   const user = matchedUsers[i];
+    //   const volunteerData = user.get("volunteer");
+    //   responseString += "Match #" + (i + 1) + ":\n";
+    //   responseString += "\tName: " + user.get("name");
+    //   responseString += "\tCity: " + user.get("city");
+    //   responseString += "\tTelephone: " + volunteerData.get("telephone");
+    // } 
+    // console.log(responseString);
+
+    var imageUrls = [
+      "public/images/match1.jpg",
+      "public/images/match2.jpg",
+      "public/images/match3.jpg",
+      "public/images/match4.jpg",
+    ]
+    var matchData = [];
+    for (i = 0; i < matchedUsers.length; i++) {
+      const user = matchedUsers[i];
+      const volunteer = user.get("volunteer");
+      if (user == undefined) {
+        continue;
+      }
+      if (volunteer == undefined) {
+        continue;
+      }
+      const imageUrl = imageUrls[i % (imageUrls.length - 1)];
+
+      const data = {
+        name: user.get("name") || "No name",
+        telephone: volunteer.get("telephone") || "No telephone number",
+        description: volunteer.get("description") || "No description",
+        special_needs_skills: volunteer.get("special_needs_skills") || "No special needs skills",
+        city: user.get("city") || "No city",
+        imageUrl: imageUrl
+      }
+      matchData.push(data);
+    }
+
+    res.render('matchingCards', {
+      matchData: matchData
+    });
+  } catch(error) {
+    console.error(error);
+    res.status(error.code).send(error.message);
   }
 });
 

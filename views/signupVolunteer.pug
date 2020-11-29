@@ -1,4 +1,4 @@
-form.column(method='post' action='')
+form.column(method='post' action='/signup')
   if error != undefined
     .form-group.col-md-5
       .alert.alert-danger(role="alert")
@@ -25,11 +25,32 @@ form.column(method='post' action='')
     span(style='color: red; display: inline; float: none;') *
     input.form-control(type='text' id='email' name='email')
   .form-group.col-md-5
-    label(for='tel') Telephone
+    label(for='telephone') Telephone
     span(style='color: red; display: inline; float: none;') *
-    input.form-control(type='text' id='tel' name='tel')
+    input.form-control(type='text' id='telephone' name='telephone')
   .form-group.col-md-5
-    label(for='special_needs') Special needs skills
+<<<<<<< HEAD
+    label(for='special_needs_skills') Skills
+    select.form-control.col-md-5(id='special_needs_skills' name='special_needs_skills').form-check
+  input#defaultCheck1.form-check-input(type='checkbox' value='option1')
+  label.form-check-label(for='defaultCheck1')
+    | Option1
+  input#defaultCheck1.form-check-input(type='checkbox' value='option2')
+  label.form-check-label(for='defaultCheck1')
+    | Option2
+  input#defaultCheck1.form-check-input(type='checkbox' value='option3')
+  label.form-check-label(for='defaultCheck1')
+    | Option3
+  input#defaultCheck1.form-check-input(type='checkbox' value='option4')
+  label.form-check-label(for='defaultCheck1')
+    | Option4
+  input#defaultCheck1.form-check-input(type='checkbox' value='option5')
+  label.form-check-label(for='defaultCheck1')
+    | Option5
+
+=======
+>>>>>>> 387ed2d20e6f115ac11476aef0beaf27f5249396
+    label(for='special_needs') I can attend to these special needs
     select.form-control.col-md-5(id='special_needs_skills' name='special_needs_skills' multiple)
       option(value="guide_vision_impaired") Vision Impaired
       option(value="guide_blind") Blind
@@ -43,6 +64,20 @@ form.column(method='post' action='')
       option(value="speech_with_gestures") Speech with gestures
       option(value="LGBTQIAplus_awareness") LGBTQIAplus awareness
   .form-group.col-md-5
+    label(for='event_types') I am interested in these event types
+    select.form-control.col-md-5(id='event_types' name='event_types' multiple)
+      option(value="Theater_Kunst") theater / art
+      option(value="Ausflüge_Cafe") excursion / coffee
+      option(value="Sport_Action") sports / action
+      option(value="Konzerte_Festivals") concerts / festivals
+      option(value="Natur_Sightseeing") nature / sightseeing
+      option(value="Andere") other
+  .form-group.col-md-5
+    label(for='description') 
+      | Two sentences about myself (keep the language accessible)
+      span(style='color: red; display: inline; float: none;') *
+    input.form-control(type='text' id='description' name='description')
+  .form-group.col-md-5
     label(for='password_1')
       | Password
       span(style='color: red; display: inline; float: none;') *
@@ -53,7 +88,12 @@ form.column(method='post' action='')
       span(style='color: red; display: inline; float: none;') *
     input.form-control(type='pasword' id='password_2' name='password_2' aria-describedby='password_2')
   .form-group.col-md-5
-  button.btn.btn-primary(type='submit') Submit
+    input(type="hidden" id="signup_type" name="signup_type" value="volunteer")
+<<<<<<< HEAD
+    button.btn.btn-outline-warning.text-dark.font-weight-bold(type='submit') Submit
+=======
+    button.btn.btn-primary(type='submit') Submit
+>>>>>>> 387ed2d20e6f115ac11476aef0beaf27f5249396
   p.col-md-5 
     | Already a member?
     a.text-warning(href='/login') 
