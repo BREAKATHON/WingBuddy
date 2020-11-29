@@ -49,6 +49,19 @@ router.get('/events', function (req, res) {
   res.render('eventForm');
 });
 
+router.get('/dashboard', function (req, res) {
+  const user = Parse.User.current();
+  if (user == undefined) {
+    // User not logged, in, redirect to login
+    res.redirect('/login');
+    return;
+  }
+
+  res.render('dashboard', {
+    user: user
+  });
+});
+
 router.get('/login', function (req, res) {
   res.render('landingPage', {
     isLoginPage: true
@@ -145,6 +158,50 @@ router.post('/login', async function (req, res) {
       error: error
     });
     return;
+  }
+});
+
+router.post('/eventBuddyRequest', async function (req, res) {
+
+  const { event_type } = req.body;
+  if (event_type == undefined) {
+    res.status(500).send("No event_type set");
+    return;
+  }
+
+  const user = Parse.User.current();
+  if (user == undefined) {
+    res.status(500).send("No user found");
+    return;
+  }
+
+  await user.fetch();
+
+  // Dummy Event
+  const Event = Parse.Object.extend("Event");
+  const event = new Event();
+
+  event.set("event_type", event_type);
+  
+  // Query
+  try {
+    const matchedUsers = await matchController.findMatches(event, user);
+
+    var responseString = "Found " + matchedUsers.length + " matches.\n";
+    var i;
+    for (i = 0; i < matchedUsers.length; i++) {
+      const user = matchedUsers[i];
+      const volunteerData = user.get("volunteer");
+      responseString += "Match #" + (i + 1) + ":\n";
+      responseString += "\tName: " + user.get("name");
+      responseString += "\tCity: " + user.get("city");
+      responseString += "\tTelephone: " + volunteerData.get("telephone");
+    } 
+
+    res.status(200).send(responseString);
+  } catch(error) {
+    console.error(error);
+    res.status(error.code).send(error.message);
   }
 });
 

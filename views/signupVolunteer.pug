@@ -67,7 +67,8 @@ form.column(method='post' action='')
       span(style='color: red; display: inline; float: none;') *
     input.form-control(type='pasword' id='password_2' name='password_2' aria-describedby='password_2')
   .form-group.col-md-5
-  button.btn.btn-primary(type='submit') Submit
+    input(type="hidden" id="signup_type" name="signup_type" value="volunteer")
+    button.btn.btn-primary(type='submit') Submit
   p.col-md-5 
     | Already a member?
     a.text-warning(href='/login') 

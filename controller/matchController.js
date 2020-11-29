@@ -4,14 +4,14 @@ Parse.initialize(parseAppId);
 Parse.serverURL = process.env.SERVER_URL;
 
 const matchController = {
-  findMatches: async function (event, seeker, limit = 3, radius_km) {
+  findMatches: async function (event, user, limit = 3, radius_km) {
 
     if (event == undefined) {
       throw ({ code: 400, message: "No event provided" });
     }
 
-    if (seeker == undefined) {
-      throw ({ code: 400, message: "No seeker provided" });
+    if (user == undefined) {
+      throw ({ code: 400, message: "No user provided" });
     }
 
     const event_type = event.get("event_type");
@@ -19,9 +19,14 @@ const matchController = {
       throw ({ code: 400, message: "No event type provided" });
     }
 
-    const seeker_location = seeker.get("location");
+    const seeker_location = user.get("location");
     if (event_type == undefined) {
       throw ({ code: 400, message: "No event type provided" });
+    }
+
+    const seeker = user.get("seeker");
+    if (seeker == undefined) {
+      throw ({ code: 400, message: "No seeker provided" });
     }
 
     // Optional
