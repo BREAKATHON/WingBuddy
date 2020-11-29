@@ -36,7 +36,7 @@ const matchController = {
 
     if (special_needs != undefined) {
       // Find volunteers where the array in special_needs_skills contains all of the elements in the seeker array special_needs.
-      innerQuery.containsAll("special_needs", special_needs);
+      innerQuery.containsAll("special_needs_skills", special_needs);
     }
 
     // Only consider screened / vetted volunteers
