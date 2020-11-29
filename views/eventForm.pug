@@ -1,23 +1,22 @@
 include partials/header.pug
   .form-row
     .col-auto.my-1
-      label.mr-sm-2(for='inlineFormCustomSelect') Preference
-      select#inlineFormCustomSelect.custom-select.mr-sm-2
-      input(type='string' <option='' selected='')
-      | Event type
-        option(value='1') One
-        option(value='2') Two
-        option(value='3') Three
     .col-7
       input.form-control(type='string' placeholder='Title')
     .col
       input.form-control(type='Date' placeholder='Date')
     .col
       input.form-control(type='string' placeholder='Description')
+    .col-md-5
+      label(for='event_types') I am interested in these event types
+      select.form-control.col-md-5(id='event_types' name='event_types' multiple)
+        option(value="concert") Concert
+        option(value="nature") Nature
+        option(value="sports") Sports
+        option(value="sightseeing") Sightseeing
+        option(value="excursions_cafe") Café
+        option(value="telephone_buddy") Telephone Buddy
 include partials/footer.pug
-
-
-
  
 
     

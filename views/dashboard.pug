@@ -1,8 +1,20 @@
-doctype html
-html(lang='en')
- head
-   title Dashboard
- body
-   h1 User
+include partials/header.pug
+  h1 Dashboard
    div.remark
-     p #{user.get("email")}
+     p User logged in with email "#{user.get("email")}".
+  .form-row
+    .col-auto.my-1
+      label.mr-sm-2(for='inlineFormCustomSelect') Preference
+      select#inlineFormCustomSelect.custom-select.mr-sm-2
+      input(type='string' <option='' selected='')
+      | Event type
+        option(value='1') One
+        option(value='2') Two
+        option(value='3') Three
+    .col-7
+      input.form-control(type='string' placeholder='Title')
+    .col
+      input.form-control(type='Date' placeholder='Date')
+    .col
+      input.form-control(type='string' placeholder='Description')
+include partials/footer.pug
