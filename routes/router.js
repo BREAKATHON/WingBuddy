@@ -24,6 +24,14 @@ router.get('/matching', function (req, res) {
   res.render('matchingCards');
 });
 
+router.get('/matchingCards', function (req, res) {
+  res.render('matchingCards');
+});
+
+router.get('/events', function (req, res) {
+  res.render('eventForm');
+});
+
 router.get('/login', function (req, res) {
   res.render('landingPage', {
     isLoginPage: true
@@ -40,7 +48,7 @@ router.get('/matchTest', async function (req, res) {
   seeker.set("location", location);
 
   // optional: special needs
-  // seeker.set("special_needs", ["special"]);
+  seeker.set("special_needs", ["special"]);
 
   // Dummy Event
   const Event = Parse.Object.extend("Event");
