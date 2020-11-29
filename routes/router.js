@@ -11,8 +11,11 @@
 const express = require('express');
 const router = express.Router();
 
+var Parse = require('../controller/Parse')
+
 const userController = require('../controller/userController');
 const matchController = require('../controller/matchController');
+const emailController = require('../controller/emailController');
 
 /*
  
@@ -31,10 +34,18 @@ router.get('/', function (req, res) {
   const isVolunteerString = req.query.isVolunteer;
   const isVolunteer = (isVolunteerString == 'true')
 
-  res.render('landingPage', {
-    isLoginPage: false,
-    isSeeker: !isVolunteer
-  });
+  const user = Parse.User.current();
+  if (user == undefined) {
+    res.render('landingPage', {
+      isLoginPage: false,
+      isSeeker: !isVolunteer
+    });
+    return;
+  } else {
+    res.render('dashboard', {
+      user: user
+    });
+  } 
 });
 
 router.get('/matching', function (req, res) {
@@ -49,6 +60,22 @@ router.get('/events', function (req, res) {
   res.render('eventForm');
 });
 
+router.get('/dashboard', async function (req, res) {
+
+  const user = Parse.User.current();
+  if (user == undefined) {
+    // User not logged, in, redirect to login
+    res.redirect('/login');
+    return;
+  }
+
+  await user.fetch();
+
+  res.render('dashboard', {
+    user: user
+  });
+});
+
 router.get('/login', function (req, res) {
   res.render('landingPage', {
     isLoginPage: true
@@ -56,12 +83,12 @@ router.get('/login', function (req, res) {
 });
 
 router.get('/matchTest', async function (req, res) {
-  
+
   // Dummy Seeker
   const Seeker = Parse.Object.extend("Seeker");
   const seeker = new Seeker();
 
-  const location = new Parse.GeoPoint({latitude: 52.5356612, longitude: 13.4334547});
+  const location = new Parse.GeoPoint({ latitude: 52.5356612, longitude: 13.4334547 });
   seeker.set("location", location);
 
   // optional: special needs
@@ -72,7 +99,7 @@ router.get('/matchTest', async function (req, res) {
   const event = new Event();
 
   event.set("event_type", "concert");
-  
+
   // Query
   try {
     const matchedUsers = await matchController.findMatches(event, seeker);
@@ -86,12 +113,28 @@ router.get('/matchTest', async function (req, res) {
       responseString += "\tName: " + user.get("name");
       responseString += "\tCity: " + user.get("city");
       responseString += "\tTelephone: " + volunteerData.get("telephone");
-    } 
+    }
 
     res.status(200).send(responseString);
-  } catch(error) {
+  } catch (error) {
     console.error(error);
     res.status(error.code).send(error.message);
+  }
+});
+
+router.get('/logout', async function (req, res) {
+  try {
+    await userController.logOut(req, res);
+    // Hooray! Let them use the app now.
+    res.redirect('/');
+    return;
+  } catch (error) {
+    // Show the error message somewhere and let the user try again.
+    console.log("Login Error: " + error.code + " " + error.message);
+    res.render('landingPage', {
+      error: error
+    });
+    return;
   }
 });
 
@@ -148,5 +191,107 @@ router.post('/login', async function (req, res) {
   }
 });
 
+router.post('/eventBuddyRequest', async function (req, res) {
+
+  const { event_type } = req.body;
+  if (event_type == undefined) {
+    res.status(500).send("No event_type set");
+    return;
+  }
+
+  const user = Parse.User.current();
+  if (user == undefined) {
+    res.status(500).send("No user found");
+    return;
+  }
+
+  // Dummy Event
+  const Event = Parse.Object.extend("Event");
+  const event = new Event();
+
+  event.set("event_type", event_type);
+
+  // Query
+  try {
+
+    // Save event
+    await event.save()
+
+    // Fetch current user data
+    await user.fetch();
+
+    // Find matched users using current user (seeker) and event data
+    const matchedUsers = await matchController.findMatches(event, user);
+
+    var imageUrls = [
+      "public/images/match1.jpg",
+      "public/images/match2.jpg",
+      "public/images/match3.jpg",
+      "public/images/match4.jpg",
+    ]
+    var matchData = {
+      matches: [],
+      eventId: event.id
+    };
+    
+    var i;
+    for (i = 0; i < matchedUsers.length; i++) {
+      const user = matchedUsers[i];
+      const volunteer = user.get("volunteer");
+      if (user == undefined) {
+        continue;
+      }
+      if (volunteer == undefined) {
+        continue;
+      }
+      const imageUrl = imageUrls[i % (imageUrls.length - 1)];
+
+      const data = {
+        name: user.get("name") || "No name",
+        telephone: volunteer.get("telephone") || "No telephone number",
+        description: volunteer.get("description") || "No description",
+        special_needs_skills: volunteer.get("special_needs_skills") || "No special needs skills",
+        city: user.get("city") || "No city",
+        imageUrl: imageUrl,
+        userId: user.id
+      }
+      matchData.matches.push(data);
+    }
+
+    res.render('matchingCards', {
+      matchData: matchData
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(error.code).send(error.message);
+  }
+});
+
+router.post('/sendBuddyRequest', async function (req, res) {
+
+  const { eventId, userId } = req.body;
+  const fromUser = Parse.User.current();
+  const toUserQuery = new Parse.Query(Parse.User);
+  const Event = Parse.Object.extend("Event");
+  const eventQuery = new Parse.Query(Event);
+
+  try {
+    // Get matched user
+    const toUser = await toUserQuery.get(userId, { useMasterKey: true });
+
+    // Get event
+    const event = await eventQuery.get(eventId);
+
+    await emailController.sendBuddyRequest(event, fromUser, toUser);
+
+    res.render("requestSent", {
+      toUser: toUser
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(error.code).send(error.message);
+  }
+
+});
 
 module.exports = router;

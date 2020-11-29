@@ -19,6 +19,7 @@ const express = require('express');
 // PARSE SERVER (https://github.com/parse-community/parse-server/wiki)
 const { default: ParseServer, ParseGraphQLServer } = require('parse-server');
 const path = require('path');
+var SimpleSendGridAdapter = require('parse-server-sendgrid-adapter');
 
 // set root path for other files to use
 global.appRoot = path.resolve(__dirname);
@@ -81,7 +82,12 @@ var api = new ParseServer({
 
   // Use a single schema cache shared across requests. Reduces number of queries made to _SCHEMA. Defaults to false, i.e. unique schema cache per request.
   // @see https://github.com/parse-community/parse-server/issues/4247
-  enableSingleSchemaCache: true
+  enableSingleSchemaCache: true,
+
+  emailAdapter: SimpleSendGridAdapter({
+    apiKey: 'sendgridApiKey',
+    fromAddress: 'julian@music-tech.de',
+  })
 });
 
 

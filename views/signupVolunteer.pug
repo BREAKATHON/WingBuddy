@@ -1,4 +1,9 @@
-form.column(method='post' action='')
+form.column(method='post' action='/signup')
+  .form-group.col-md-5 
+    br
+    h3 
+      span.col-auto.badge.badge-warning
+      | Registration as a volunteer
   if error != undefined
     .form-group.col-md-5
       .alert.alert-danger(role="alert")
@@ -25,35 +30,99 @@ form.column(method='post' action='')
     span(style='color: red; display: inline; float: none;') *
     input.form-control(type='text' id='email' name='email')
   .form-group.col-md-5
-    label(for='tel') Telephone
+    label(for='telephone') Telephone
     span(style='color: red; display: inline; float: none;') *
-    input.form-control(type='text' id='tel' name='tel')
+    input.form-control(type='text' id='telephone' name='telephone')
   .form-group.col-md-5
-    label(for='special_needs') I am able to:
-    select.form-control.col-md-5(id='special_needs_skills' name='special_needs_skills' multiple)
-      option(value="guide_vision_impaired") Guide a visually impaired person
-      option(value="guide_blind") Guide a blind person
-      option(value="psychological_support") Offer psychological support
-      option(value="nursing") Do medical nursing
-      option(value="handle_wheelchair") Handle a wheelchair appropriately
-      option(value="sign_language") Use sign language
-      option(value="trauma_awareness") Deal supportively with trauma
-      option(value="neurodiversity_awareness") Deal supportively with neurodiversity
-      option(value="intellectual_disability_awereness") Deal supportively with intellectual disability
-      option(value="speech_with_gestures") Use speech with gestures
-      option(value="LGBTQIAplus_awareness") Be supportive of LGBTQIAplus
-  .form-group.col-md-5 
+    label(for='special_needs') I can attend to these special needs
+    .form-check
+      input.form-check-input(type='checkbox' id="guide_vision_impaired" name="guide_vision_impaired")
+      label.form-check-label(for='guide_vision_impaired')
+        | Vision Impaired
+    .form-check
+      input.form-check-input(type='checkbox' id="guide_blind" name="guide_blind")
+      label.form-check-label(for='guide_blind')
+        | Blind
+    .form-check
+      input.form-check-input(type='checkbox' id="psychological_support" name="psychological_support")
+      label.form-check-label(for='psychological_support')
+        | Psychological support
+    .form-check
+      input.form-check-input(type='checkbox' id="nursing" name="nursing")
+      label.form-check-label(for='nursing')
+        | Nursing
+    .form-check
+      input.form-check-input(type='checkbox' id="handle_wheelchair" name="handle_wheelchair")
+      label.form-check-label(for='handle_wheelchair')
+        | I am in a wheelchair
+    .form-check
+      input.form-check-input(type='checkbox' id="sign_language" name="sign_language")
+      label.form-check-label(for='sign_language')
+        | Sign language
+    .form-check
+      input.form-check-input(type='checkbox' id="trauma_awareness" name="trauma_awareness")
+      label.form-check-label(for='trauma_awareness')
+        | Trauma awareness
+    .form-check
+      input.form-check-input(type='checkbox' id="neurodiversity_awareness" name="neurodiversity_awareness")
+      label.form-check-label(for='neurodiversity_awareness')
+        | Neurodiversity awareness
+    .form-check
+      input.form-check-input(type='checkbox' id="intellectual_disability_awereness" name="intellectual_disability_awereness")
+      label.form-check-label(for='intellectual_disability_awereness')
+        | Intellectual disability awereness
+    .form-check
+      input.form-check-input(type='checkbox' id="speech_with_gestures" name="speech_with_gestures")
+      label.form-check-label(for='speech_with_gestures')
+        | Speech with gestures
+    .form-check
+      input.form-check-input(type='checkbox' id="LGBTQIAplus_awareness" name="LGBTQIAplus_awareness")
+      label.form-check-label(for='LGBTQIAplus_awareness')
+        | LGBTQIAplus awareness
+  .form-group.col-md-5
+    label(for='event_types') I am interested in these event types
+    .form-check
+      input.form-check-input(type='checkbox' id="Theater_Kunst" name="Theater_Kunst")
+      label.form-check-label(for="Theater_Kunst")
+        | theater / art
+    .form-check
+      input.form-check-input(type='checkbox' id="Ausflüge_Cafe" name="Ausflüge_Cafe")
+      label.form-check-label(for="Ausflüge_Cafe")
+        | excursions / coffee
+    .form-check
+      input.form-check-input(type='checkbox' id="Sport_Action" name="Sport_Action")
+      label.form-check-label(for="Sport_Action")
+        | sports / action
+    .form-check
+      input.form-check-input(type='checkbox' id="Konzerte_Festivals" name="Konzerte_Festivals")
+      label.form-check-label(for="Konzerte_Festivals")
+        | concerts / festivals
+    .form-check
+      input.form-check-input(type='checkbox' id="Natur_Sightseeing" name="Natur_Sightseeing")
+      label.form-check-label(for="Natur_Sightseeing")
+        | nature / sightseeing
+    .form-check
+      input.form-check-input(type='checkbox' id="Andere" name="Andere")
+      label.form-check-label(for="Andere")
+        | other
+  .form-group.col-md-5
+    label(for='description') 
+      | Two sentences about myself (keep the language accessible)
+      span(style='color: red; display: inline; float: none;') *
+    input.form-control(type='text' id='description' name='description')
+  .form-group.col-md-5
     label(for='password_1')
       | Password
       span(style='color: red; display: inline; float: none;') *
-    input.form-control(type='pasword' id='password_1' name='password_1' aria-describedby='password_1')
+    input.form-control(type='password' id='password_1' name='password_1' aria-describedby='password_1')
   .form-group.col-md-5
     label(for='password_2')
       | Repeat password
       span(style='color: red; display: inline; float: none;') *
-    input.form-control(type='pasword' id='password_2' name='password_2' aria-describedby='password_2')
+    input.form-control(type='password' id='password_2' name='password_2' aria-describedby='password_2')
   .form-group.col-md-5
-  button.btn.btn-primary(type='submit') Submit
+    input(type="hidden" id="signup_type" name="signup_type" value="volunteer")
+    button.btn.btn-primary(type='submit') Submit
   p.col-md-5 
     | Already a member?
     a.text-warning(href='/login') 
