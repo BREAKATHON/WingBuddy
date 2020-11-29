@@ -30,12 +30,23 @@ form.column(method='post' action='')
     input.form-control(type='text' id='tel' name='tel')
   .form-group.col-md-5
     label(for='special_needs_skills') Skills
-    select.form-control.col-md-5(id='special_needs_skills' name='special_needs_skills')
-      option 1
-      option 2
-      option 3
-      option 4
-      option 5
+    select.form-control.col-md-5(id='special_needs_skills' name='special_needs_skills').form-check
+  input#defaultCheck1.form-check-input(type='checkbox' value='option1')
+  label.form-check-label(for='defaultCheck1')
+    | Option1
+  input#defaultCheck1.form-check-input(type='checkbox' value='option2')
+  label.form-check-label(for='defaultCheck1')
+    | Option2
+  input#defaultCheck1.form-check-input(type='checkbox' value='option3')
+  label.form-check-label(for='defaultCheck1')
+    | Option3
+  input#defaultCheck1.form-check-input(type='checkbox' value='option4')
+  label.form-check-label(for='defaultCheck1')
+    | Option4
+  input#defaultCheck1.form-check-input(type='checkbox' value='option5')
+  label.form-check-label(for='defaultCheck1')
+    | Option5
+
   .form-group.col-md-5
     label(for='password_1')
       | Password
