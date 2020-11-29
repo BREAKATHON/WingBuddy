@@ -4,7 +4,8 @@ section.jumbotron.d-flex.flex-row.justify-content-end
       | Dashboard 
 section.container 
   div.remark
-    p User logged in with email "#{user.get("email")}".
+    p User logged in with email "#{user.get("email")}". 
+      a(href="/logout") Logout
   if user.get("seeker") != undefined
     form.column(method='post' action='/eventBuddyRequest')
       .form-group.col-md-5

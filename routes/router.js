@@ -15,6 +15,7 @@ var Parse = require('../controller/Parse')
 
 const userController = require('../controller/userController');
 const matchController = require('../controller/matchController');
+const emailController = require('../controller/emailController');
 
 /*
  
@@ -72,12 +73,12 @@ router.get('/login', function (req, res) {
 });
 
 router.get('/matchTest', async function (req, res) {
-  
+
   // Dummy Seeker
   const Seeker = Parse.Object.extend("Seeker");
   const seeker = new Seeker();
 
-  const location = new Parse.GeoPoint({latitude: 52.5356612, longitude: 13.4334547});
+  const location = new Parse.GeoPoint({ latitude: 52.5356612, longitude: 13.4334547 });
   seeker.set("location", location);
 
   // optional: special needs
@@ -88,7 +89,7 @@ router.get('/matchTest', async function (req, res) {
   const event = new Event();
 
   event.set("event_type", "concert");
-  
+
   // Query
   try {
     const matchedUsers = await matchController.findMatches(event, seeker);
@@ -102,12 +103,28 @@ router.get('/matchTest', async function (req, res) {
       responseString += "\tName: " + user.get("name");
       responseString += "\tCity: " + user.get("city");
       responseString += "\tTelephone: " + volunteerData.get("telephone");
-    } 
+    }
 
     res.status(200).send(responseString);
-  } catch(error) {
+  } catch (error) {
     console.error(error);
     res.status(error.code).send(error.message);
+  }
+});
+
+router.get('/logout', async function (req, res) {
+  try {
+    await userController.logOut(req, res);
+    // Hooray! Let them use the app now.
+    res.redirect('/');
+    return;
+  } catch (error) {
+    // Show the error message somewhere and let the user try again.
+    console.log("Login Error: " + error.code + " " + error.message);
+    res.render('landingPage', {
+      error: error
+    });
+    return;
   }
 });
 
@@ -183,9 +200,13 @@ router.post('/eventBuddyRequest', async function (req, res) {
   const event = new Event();
 
   event.set("event_type", event_type);
-  
+
   // Query
   try {
+
+    // Save event
+    await event.save()
+
     // Fetch current user data
     await user.fetch();
 
@@ -210,7 +231,10 @@ router.post('/eventBuddyRequest', async function (req, res) {
       "public/images/match3.jpg",
       "public/images/match4.jpg",
     ]
-    var matchData = [];
+    var matchData = {
+      matches: [],
+      eventId: event.id
+    };
     for (i = 0; i < matchedUsers.length; i++) {
       const user = matchedUsers[i];
       const volunteer = user.get("volunteer");
@@ -228,19 +252,46 @@ router.post('/eventBuddyRequest', async function (req, res) {
         description: volunteer.get("description") || "No description",
         special_needs_skills: volunteer.get("special_needs_skills") || "No special needs skills",
         city: user.get("city") || "No city",
-        imageUrl: imageUrl
+        imageUrl: imageUrl,
+        userId: user.id
       }
-      matchData.push(data);
+      matchData.matches.push(data);
     }
 
     res.render('matchingCards', {
       matchData: matchData
     });
-  } catch(error) {
+  } catch (error) {
     console.error(error);
     res.status(error.code).send(error.message);
   }
 });
 
+router.post('/sendBuddyRequest', async function (req, res) {
+
+  const { eventId, userId } = req.body;
+  const fromUser = Parse.User.current();
+  const toUserQuery = new Parse.Query(Parse.User);
+  const Event = Parse.Object.extend("Event");
+  const eventQuery = new Parse.Query(Event);
+
+  try {
+    // Get matched user
+    const toUser = await toUserQuery.get(userId, { useMasterKey: true });
+
+    // Get event
+    const event = await eventQuery.get(eventId);
+
+    await emailController.sendBuddyRequest(event, fromUser, toUser);
+
+    res.render("requestSent", {
+      toUser: toUser
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(error.code).send(error.message);
+  }
+
+});
 
 module.exports = router;

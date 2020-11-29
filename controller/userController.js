@@ -100,6 +100,9 @@ const userController = {
     }
 
     return await Parse.User.logIn(username, password);
+  },
+  logOut: async function (req, res) {
+    await Parse.User.logOut();
   }
 }
 
