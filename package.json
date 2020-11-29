@@ -13,12 +13,14 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@sendgrid/mail": "^7.4.0",
     "express": "~4.17.x",
     "got": "^11.8.x",
     "helmet": "^4.2.x",
     "kerberos": "~1.1.x",
     "parse": "~2.18.x",
     "parse-server": "~4.4.x",
+    "parse-server-sendgrid-adapter": "^1.0.0",
     "pug": "^3.0.x",
     "urlencode": "^1.1.x"
   },

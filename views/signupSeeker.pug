@@ -1,5 +1,6 @@
 form.column(method='post' action='/signup')
   .form-group.col-md-5 
+    br
     h3 
       span.col-auto.badge.badge-warning
       | Registration as a buddy seeker
@@ -35,18 +36,50 @@ form.column(method='post' action='/signup')
     input.form-control(type='text' id='city' name='city')
   .form-group.col-md-5
     label(for='special_needs') Special needs
-    select.form-control.col-md-5(id='special_needs_skills' name='special_needs_skills' multiple)
-      option(value="guide_vision_impaired") Vision Impaired
-      option(value="guide_blind") Blind
-      option(value="psychological_support") Psychological support
-      option(value="nursing") Nursing
-      option(value="handle_wheelchair") I am in a wheelchair
-      option(value="sign_language") Sign language
-      option(value="trauma_awareness") Trauma awareness
-      option(value="neurodiversity_awareness") Neurodiversity awareness
-      option(value="intellectual_disability_awereness") Intellectual disability awereness
-      option(value="speech_with_gestures") Speech with gestures
-      option(value="LGBTQIAplus_awareness") LGBTQIAplus awareness
+    .form-check
+      input.form-check-input(type='checkbox' id="guide_vision_impaired" name="guide_vision_impaired")
+      label.form-check-label(for='guide_vision_impaired')
+        | Vision Impaired
+    .form-check
+      input.form-check-input(type='checkbox' id="guide_blind" name="guide_blind")
+      label.form-check-label(for='guide_blind')
+        | Blind
+    .form-check
+      input.form-check-input(type='checkbox' id="psychological_support" name="psychological_support")
+      label.form-check-label(for='psychological_support')
+        | Psychological support
+    .form-check
+      input.form-check-input(type='checkbox' id="nursing" name="nursing")
+      label.form-check-label(for='nursing')
+        | Nursing
+    .form-check
+      input.form-check-input(type='checkbox' id="handle_wheelchair" name="handle_wheelchair")
+      label.form-check-label(for='handle_wheelchair')
+        | I am in a wheelchair
+    .form-check
+      input.form-check-input(type='checkbox' id="sign_language" name="sign_language")
+      label.form-check-label(for='sign_language')
+        | Sign language
+    .form-check
+      input.form-check-input(type='checkbox' id="trauma_awareness" name="trauma_awareness")
+      label.form-check-label(for='trauma_awareness')
+        | Trauma awareness
+    .form-check
+      input.form-check-input(type='checkbox' id="neurodiversity_awareness" name="neurodiversity_awareness")
+      label.form-check-label(for='neurodiversity_awareness')
+        | Neurodiversity awareness
+    .form-check
+      input.form-check-input(type='checkbox' id="intellectual_disability_awereness" name="intellectual_disability_awereness")
+      label.form-check-label(for='intellectual_disability_awereness')
+        | Intellectual disability awereness
+    .form-check
+      input.form-check-input(type='checkbox' id="speech_with_gestures" name="speech_with_gestures")
+      label.form-check-label(for='speech_with_gestures')
+        | Speech with gestures
+    .form-check
+      input.form-check-input(type='checkbox' id="LGBTQIAplus_awareness" name="LGBTQIAplus_awareness")
+      label.form-check-label(for='LGBTQIAplus_awareness')
+        | LGBTQIAplus awareness
   .form-group.col-md-5
     label(for='password_1') 
       | Password 
@@ -58,7 +91,7 @@ form.column(method='post' action='/signup')
       | Confirm password 
       span(style='color: red; display: inline; float: none;') 
         | * 
-    input.form-control(type='passw.text-dark.font-weight-boldord' name='password_2' placeholder='Password' required='') 
+    input.form-control(type='password' name='password_2' placeholder='Password' required='') 
   .form-group.col-md-5
     input(type="hidden" id="signup_type" name="signup_type" value="seeker")
     button.btn.btn-outline-warning(type='submit') 

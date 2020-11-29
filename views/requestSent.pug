@@ -1,0 +1,11 @@
+include partials/header.pug
+section.jumbotron.d-flex.flex-row.justify-content-end
+    h1.mr-5.text-info 
+      | Request sent
+.container.m-auto.flex.row.space-evenly(class='display: flex-direction: justify-content:')
+  if toUser != undefined
+    .form-group.col-md-5
+      .alert.alert-danger(role="success")
+        | You sent a buddy request to #{toUser.get("name") || "No name"}
+br
+include partials/footer.pug

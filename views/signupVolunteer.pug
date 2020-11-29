@@ -1,4 +1,9 @@
 form.column(method='post' action='/signup')
+  .form-group.col-md-5 
+    br
+    h3 
+      span.col-auto.badge.badge-warning
+      | Registration as a volunteer
   if error != undefined
     .form-group.col-md-5
       .alert.alert-danger(role="alert")
@@ -29,49 +34,77 @@ form.column(method='post' action='/signup')
     span(style='color: red; display: inline; float: none;') *
     input.form-control(type='text' id='telephone' name='telephone')
   .form-group.col-md-5
-<<<<<<< HEAD
-    label(for='special_needs_skills') Skills
-    select.form-control.col-md-5(id='special_needs_skills' name='special_needs_skills').form-check
-  input#defaultCheck1.form-check-input(type='checkbox' value='option1')
-  label.form-check-label(for='defaultCheck1')
-    | Option1
-  input#defaultCheck1.form-check-input(type='checkbox' value='option2')
-  label.form-check-label(for='defaultCheck1')
-    | Option2
-  input#defaultCheck1.form-check-input(type='checkbox' value='option3')
-  label.form-check-label(for='defaultCheck1')
-    | Option3
-  input#defaultCheck1.form-check-input(type='checkbox' value='option4')
-  label.form-check-label(for='defaultCheck1')
-    | Option4
-  input#defaultCheck1.form-check-input(type='checkbox' value='option5')
-  label.form-check-label(for='defaultCheck1')
-    | Option5
-
-=======
->>>>>>> 387ed2d20e6f115ac11476aef0beaf27f5249396
     label(for='special_needs') I can attend to these special needs
-    select.form-control.col-md-5(id='special_needs_skills' name='special_needs_skills' multiple)
-      option(value="guide_vision_impaired") Vision Impaired
-      option(value="guide_blind") Blind
-      option(value="psychological_support") Psychological support
-      option(value="nursing") Nursing
-      option(value="handle_wheelchair") I am in a wheelchair
-      option(value="sign_language") Sign language
-      option(value="trauma_awareness") Trauma awareness
-      option(value="neurodiversity_awareness") Neurodiversity awareness
-      option(value="intellectual_disability_awereness") Intellectual disability awereness
-      option(value="speech_with_gestures") Speech with gestures
-      option(value="LGBTQIAplus_awareness") LGBTQIAplus awareness
+    .form-check
+      input.form-check-input(type='checkbox' id="guide_vision_impaired" name="guide_vision_impaired")
+      label.form-check-label(for='guide_vision_impaired')
+        | Vision Impaired
+    .form-check
+      input.form-check-input(type='checkbox' id="guide_blind" name="guide_blind")
+      label.form-check-label(for='guide_blind')
+        | Blind
+    .form-check
+      input.form-check-input(type='checkbox' id="psychological_support" name="psychological_support")
+      label.form-check-label(for='psychological_support')
+        | Psychological support
+    .form-check
+      input.form-check-input(type='checkbox' id="nursing" name="nursing")
+      label.form-check-label(for='nursing')
+        | Nursing
+    .form-check
+      input.form-check-input(type='checkbox' id="handle_wheelchair" name="handle_wheelchair")
+      label.form-check-label(for='handle_wheelchair')
+        | I am in a wheelchair
+    .form-check
+      input.form-check-input(type='checkbox' id="sign_language" name="sign_language")
+      label.form-check-label(for='sign_language')
+        | Sign language
+    .form-check
+      input.form-check-input(type='checkbox' id="trauma_awareness" name="trauma_awareness")
+      label.form-check-label(for='trauma_awareness')
+        | Trauma awareness
+    .form-check
+      input.form-check-input(type='checkbox' id="neurodiversity_awareness" name="neurodiversity_awareness")
+      label.form-check-label(for='neurodiversity_awareness')
+        | Neurodiversity awareness
+    .form-check
+      input.form-check-input(type='checkbox' id="intellectual_disability_awereness" name="intellectual_disability_awereness")
+      label.form-check-label(for='intellectual_disability_awereness')
+        | Intellectual disability awereness
+    .form-check
+      input.form-check-input(type='checkbox' id="speech_with_gestures" name="speech_with_gestures")
+      label.form-check-label(for='speech_with_gestures')
+        | Speech with gestures
+    .form-check
+      input.form-check-input(type='checkbox' id="LGBTQIAplus_awareness" name="LGBTQIAplus_awareness")
+      label.form-check-label(for='LGBTQIAplus_awareness')
+        | LGBTQIAplus awareness
   .form-group.col-md-5
     label(for='event_types') I am interested in these event types
-    select.form-control.col-md-5(id='event_types' name='event_types' multiple)
-      option(value="Theater_Kunst") theater / art
-      option(value="Ausflüge_Cafe") excursion / coffee
-      option(value="Sport_Action") sports / action
-      option(value="Konzerte_Festivals") concerts / festivals
-      option(value="Natur_Sightseeing") nature / sightseeing
-      option(value="Andere") other
+    .form-check
+      input.form-check-input(type='checkbox' id="Theater_Kunst" name="Theater_Kunst")
+      label.form-check-label(for="Theater_Kunst")
+        | theater / art
+    .form-check
+      input.form-check-input(type='checkbox' id="Ausflüge_Cafe" name="Ausflüge_Cafe")
+      label.form-check-label(for="Ausflüge_Cafe")
+        | excursions / coffee
+    .form-check
+      input.form-check-input(type='checkbox' id="Sport_Action" name="Sport_Action")
+      label.form-check-label(for="Sport_Action")
+        | sports / action
+    .form-check
+      input.form-check-input(type='checkbox' id="Konzerte_Festivals" name="Konzerte_Festivals")
+      label.form-check-label(for="Konzerte_Festivals")
+        | concerts / festivals
+    .form-check
+      input.form-check-input(type='checkbox' id="Natur_Sightseeing" name="Natur_Sightseeing")
+      label.form-check-label(for="Natur_Sightseeing")
+        | nature / sightseeing
+    .form-check
+      input.form-check-input(type='checkbox' id="Andere" name="Andere")
+      label.form-check-label(for="Andere")
+        | other
   .form-group.col-md-5
     label(for='description') 
       | Two sentences about myself (keep the language accessible)
@@ -81,19 +114,15 @@ form.column(method='post' action='/signup')
     label(for='password_1')
       | Password
       span(style='color: red; display: inline; float: none;') *
-    input.form-control(type='pasword' id='password_1' name='password_1' aria-describedby='password_1')
+    input.form-control(type='password' id='password_1' name='password_1' aria-describedby='password_1')
   .form-group.col-md-5
     label(for='password_2')
       | Repeat password
       span(style='color: red; display: inline; float: none;') *
-    input.form-control(type='pasword' id='password_2' name='password_2' aria-describedby='password_2')
+    input.form-control(type='password' id='password_2' name='password_2' aria-describedby='password_2')
   .form-group.col-md-5
     input(type="hidden" id="signup_type" name="signup_type" value="volunteer")
-<<<<<<< HEAD
-    button.btn.btn-outline-warning.text-dark.font-weight-bold(type='submit') Submit
-=======
     button.btn.btn-primary(type='submit') Submit
->>>>>>> 387ed2d20e6f115ac11476aef0beaf27f5249396
   p.col-md-5 
     | Already a member?
     a.text-warning(href='/login') 

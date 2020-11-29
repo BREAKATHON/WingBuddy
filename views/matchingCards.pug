@@ -3,16 +3,18 @@ section.jumbotron.d-flex.flex-row.justify-content-end
     h1.mr-5.text-info 
       | You have matches!
 .container.m-auto.flex.row.space-evenly(class='display: flex-direction: justify-content:')
-  each match in matchData
+  each match in matchData.matches
     - var imageUrl = match.imageUrl
     .card.d-inline.p-4(style='width: 18rem;')
       img.card-img-top(src=imageUrl alt='Match profile image')
       .card-body
         h5.card-title= match.name
         p.card-text= match.description
-        p.card-text= match.telephone
-      .card-body
-        p Request to meet
+        p.card-text Telephone: #{match.telephone}
+        p.card-text City: #{match.city}
+      form(method="post" action="/sendBuddyRequest")
+        input(type="hidden" id="eventId" name="eventId" value=matchData.eventId)
+        input(type="hidden" id="userId" name="userId" value=match.userId)
         button.btn.btn-success(type='submit') Send request
 br
 include partials/footer.pug
