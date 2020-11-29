@@ -1,0 +1,27 @@
+section.jumbotron.d-flex.flex-row.justify-content-end 
+  h1.mr-5.text-info 
+    | Log in
+section.container 
+  form.column(method='post' action='/login')
+    .form-group.col-md-5 
+      h3
+        span.col-auto.badge.badge-warning 
+          | Log in
+      label(for='exampleInputPassword1')
+        | Username
+        span(style='color: red; display: inline; float: none;') 
+          | *
+      input.form-control(type='text' name='username' placeholder='Username' required='')
+    .form-group.col-md-5 
+      label(for='inputPassword') 
+        | Password
+        span(style='color: red; display: inline; float: none;') 
+          | *
+      input.form-control(type='password' name='password' placeholder='Password' required='')
+    .form-group.col-md-6
+      button.btn.btn-warning.text-dark.font-weight-bold(type='submit' name='login_user')
+        | Login 
+    p.col-md-6 
+      | Not yet a member? 
+      a.text-warning(href='/signup') 
+        | Sign up

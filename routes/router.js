@@ -10,40 +10,127 @@
 
 const express = require('express');
 const router = express.Router();
-const path = require('path');
 
 const userController = require('../controller/userController');
+const matchController = require('../controller/matchController');
 
-// Parse Server plays nicely with the rest of your web routes
-router.get('/', function(req, res) {
-  res.render('landingPage');
+/*
+ 
+  d888b  d88888b d888888b 
+ 88' Y8b 88'     `~~88~~' 
+ 88      88ooooo    88    
+ 88  ooo 88~~~~~    88    
+ 88. ~8~ 88.        88    
+  Y888P  Y88888P    YP    
+                          
+                          
+ 
+*/
+
+router.get('/', function (req, res) {
+  const isVolunteerString = req.query.isVolunteer;
+  const isVolunteer = (isVolunteerString == 'true')
+
+  res.render('landingPage', {
+    isLoginPage: false,
+    isSeeker: !isVolunteer
+  });
 });
 
-// There will be a test page available on the /test path of your server url
-// Remove this before launching your app
-router.get('/test-static', function(req, res) {
-  res.sendFile(path.join(__dirname, '../public/test.html'));
+router.get('/matching', function (req, res) {
+  res.render('matchingCards');
 });
 
-router.post('/signup', async function(req, res) {
+router.get('/matchingCards', function (req, res) {
+  res.render('matchingCards');
+});
+
+router.get('/events', function (req, res) {
+  res.render('eventForm');
+});
+
+router.get('/login', function (req, res) {
+  res.render('landingPage', {
+    isLoginPage: true
+  });
+});
+
+router.get('/matchTest', async function (req, res) {
+  
+  // Dummy Seeker
+  const Seeker = Parse.Object.extend("Seeker");
+  const seeker = new Seeker();
+
+  const location = new Parse.GeoPoint({latitude: 52.5356612, longitude: 13.4334547});
+  seeker.set("location", location);
+
+  // optional: special needs
+  seeker.set("special_needs", ["special"]);
+
+  // Dummy Event
+  const Event = Parse.Object.extend("Event");
+  const event = new Event();
+
+  event.set("event_type", "concert");
+  
+  // Query
   try {
-    const user = await userController.signUp(req, res);
+    const matchedUsers = await matchController.findMatches(event, seeker);
+
+    var responseString = "Found " + matchedUsers.length + " matches.\n";
+    var i;
+    for (i = 0; i < matchedUsers.length; i++) {
+      const user = matchedUsers[i];
+      const volunteerData = user.get("volunteer");
+      responseString += "Match #" + (i + 1) + ":\n";
+      responseString += "\tName: " + user.get("name");
+      responseString += "\tCity: " + user.get("city");
+      responseString += "\tTelephone: " + volunteerData.get("telephone");
+    } 
+
+    res.status(200).send(responseString);
+  } catch(error) {
+    console.error(error);
+    res.status(error.code).send(error.message);
+  }
+});
+
+/*
+ 
+ d8888b.  .d88b.  .d8888. d888888b 
+ 88  `8D .8P  Y8. 88'  YP `~~88~~' 
+ 88oodD' 88    88 `8bo.      88    
+ 88~~~   88    88   `Y8b.    88    
+ 88      `8b  d8' db   8D    88    
+ 88       `Y88P'  `8888Y'    YP    
+                                   
+                                   
+ 
+*/
+
+router.post('/signup', async function (req, res) {
+
+  // Who is signing up?
+  const { signup_type } = req.body;
+
+  try {
+    const user = await userController.signUp(req);
     // Hooray! Let them use the app now.
     res.render('dashboard', {
       user: user
     });
-    return;
   } catch (error) {
     // Show the error message somewhere and let the user try again.
-    console.log("Signup Error: " + error.code + " " + error.message);
+    console.log("Signup Error (" + error.code + "): " + error.message);
     res.render('landingPage', {
+      isLoginPage: false,
+      isSeeker: (signup_type == "seeker"),
       error: error
     });
-    return;
   }
 });
 
-router.post('/login', async function(req, res) {
+router.post('/login', async function (req, res) {
   try {
     const user = await userController.logIn(req, res);
     // Hooray! Let them use the app now.
@@ -60,5 +147,6 @@ router.post('/login', async function(req, res) {
     return;
   }
 });
+
 
 module.exports = router;

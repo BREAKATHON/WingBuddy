@@ -4,7 +4,8 @@
   "description": "A buddy matching platform for visits to cultural events for handicapped people.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -12,18 +13,20 @@
   },
   "license": "MIT",
   "dependencies": {
-    "express": "~4.11.x",
-    "kerberos": "~0.0.x",
-    "parse": "~1.8.0",
-    "parse-server": "*",
-    "helmet": "^3.22.0",
-    "pug": "^3.0.0",
-    "dotenv": "~8.2.0"
-  },
-  "scripts": {
-    "start": "node index.js"
+    "express": "~4.17.x",
+    "got": "^11.8.x",
+    "helmet": "^4.2.x",
+    "kerberos": "~1.1.x",
+    "parse": "~2.18.x",
+    "parse-server": "~4.4.x",
+    "pug": "^3.0.x",
+    "urlencode": "^1.1.x"
   },
   "engines": {
     "node": ">=4.3"
+  },
+  "devDependencies": {
+    "mocha": "^8.2.1",
+    "dotenv": "~8.2.x"
   }
 }
