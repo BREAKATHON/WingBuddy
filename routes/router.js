@@ -13,7 +13,6 @@ const router = express.Router();
 
 const userController = require('../controller/userController');
 const matchController = require('../controller/matchController');
-const geoCodingController = require('../controller/geoCodingController');
 
 // Parse Server plays nicely with the rest of your web routes
 router.get('/', function (req, res) {
@@ -74,20 +73,6 @@ router.get('/matchTest', async function (req, res) {
     res.status(200).send(responseString);
   } catch(error) {
     console.error(error);
-    res.status(error.code).send(error.message);
-  }
-});
-
-router.get('/geo', async function (req, res) {
-
-  const street = "Danziger Str. 122";
-  const postalCode = "10407";
-  const city = "Berlin";
-
-  try {
-    const coordinates = await geoCodingController.decode(street, postalCode, city);
-    res.status(200).send("Lat: " + coordinates.lat + " lon: " + coordinates.lon);
-  } catch (error) {
     res.status(error.code).send(error.message);
   }
 });
