@@ -9,10 +9,30 @@ form.column(method='post' action='/signup')
         | Error (#{error.code || "No Error code"}): #{error.message || "No error message"}
   .form-group.col-md-5 
     label(for='name')
+      | Name
+      span(style='color: red; display: inline; float: none;') 
+        | *
+    input.form-control(type='string' name='name' aria-describedby='nameHelp' placeholder='Enter your name' required='')
+  .form-group.col-md-5 
+    label(for='email')
       | Email address 
       span(style='color: red; display: inline; float: none;') 
         | *
-    input.form-control(type='string' name='name' aria-describedby='nameHelp' placeholder='Enter your name' required='') 
+    input.form-control(type='email' name='email' aria-describedby='emailHelp' placeholder='Enter email' required='') 
+    small#emailHelp.form-text.text-muted
+    | We&apos;ll never share your email with anyone else. 
+  .form-group.col-md-5
+    label(for='street') Street
+    span(style='color: red; display: inline; float: none;') *
+    input.form-control(type='text' id='street' name='street')
+  .form-group.col-md-5
+    label(for='postal_code') Zip code
+    span(style='color: red; display: inline; float: none;') *
+    input.form-control(type='text' id='postal_code' name='postal_code')
+  .form-group.col-md-5
+    label(for='city') City
+    span(style='color: red; display: inline; float: none;') *
+    input.form-control(type='text' id='city' name='city')
   .form-group.col-md-5
     label(for='special_needs') Special needs
     select.form-control.col-md-5(id='special_needs_skills' name='special_needs_skills' multiple)
@@ -27,14 +47,6 @@ form.column(method='post' action='/signup')
       option(value="intellectual_disability_awereness") Intellectual disability awereness
       option(value="speech_with_gestures") Speech with gestures
       option(value="LGBTQIAplus_awareness") LGBTQIAplus awareness
-  .form-group.col-md-5 
-    label(for='email')
-      | Email address 
-      span(style='color: red; display: inline; float: none;') 
-        | *
-    input.form-control(type='email' name='email' aria-describedby='emailHelp' placeholder='Enter email' required='') 
-    small#emailHelp.form-text.text-muted
-    | We&apos;ll never share your email with anyone else. 
   .form-group.col-md-5
     label(for='password_1') 
       | Password 
