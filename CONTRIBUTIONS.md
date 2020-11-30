@@ -15,20 +15,19 @@ Under construction. For now we have the slack channels that were used during the
 - Julian Vogels
 - Frauke Fruhling
 - Thiemo
-- Bastien
 - Aleksandra Slowik
 - Dan
 - Sabine
 - Diana
 - Bastien Deresteau
-- Julian Vogels
 - Maja Minnaert
 - ...
 
 ## Many thanks to
 
-- Juliane
+- Juliane Wernhard
 - Inklusion muss laut sein
+- Matthias Strobel
 - Breakathon organizers
 - KuDiBa
 - ...
